@@ -1,0 +1,16 @@
+enum ActionStatus {
+  deleting,
+  editing,
+  deletingSuccess,
+  deletingFail,
+  canEdit,
+  editingSuccess,
+  editingFail,
+  adding,
+  addingFail,
+  addingSuccess,
+  fetching,
+  fetchingMore,
+  searching,
+  initial,
+}

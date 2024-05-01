@@ -1,9 +1,10 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-class LabelDropDownSearchable extends StatelessWidget {
+class LabelDropDownSearchable<T> extends StatelessWidget {
   const LabelDropDownSearchable({
     super.key,
     required this.items,
@@ -13,14 +14,22 @@ class LabelDropDownSearchable extends StatelessWidget {
     this.height,
     this.label,
     this.onChanged,
+    this.value,
+    this.selectedItems = const [],
+    this.getName,
+    this.isSelected,
   });
-  final List<String> items;
+  final List<T> items;
   final TextEditingController textEditingController;
   final String hintText;
   final String? label;
   final double? height;
   final double? width;
-  final void Function(String?)? onChanged;
+  final void Function(T?)? onChanged;
+  final T? value;
+  final List<T> selectedItems;
+  final String Function(T t)? getName;
+  final bool Function(T t)? isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +56,7 @@ class LabelDropDownSearchable extends StatelessWidget {
           )),
           ResponsiveRowColumnItem(
             child: DropdownButtonHideUnderline(
-              child: DropdownButton2<String>(
+              child: DropdownButton2<T>(
                 isExpanded: true,
                 hint: Text(
                   hintText,
@@ -56,18 +65,35 @@ class LabelDropDownSearchable extends StatelessWidget {
                     color: Theme.of(context).hintColor,
                   ),
                 ),
+
                 items: items
                     .map((item) => DropdownMenuItem(
                           value: item,
-                          child: Text(
-                            item,
-                            style: const TextStyle(
-                              fontSize: 14,
+                          child: Container(
+                            color: (!(isSelected == null) && isSelected!(item))
+                                ? linkBTNColor
+                                : selectedItems.contains(item)
+                                    ? linkBTNColor
+                                    : null,
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Text(
+                              getName == null ? T.toString() : getName!(item),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color:
+                                    (!(isSelected == null) && isSelected!(item))
+                                        ? Colors.white
+                                        : selectedItems.contains(item)
+                                            ? Colors.white
+                                            : null,
+                              ),
                             ),
                           ),
                         ))
                     .toList(),
-                value: null,
+                value: value,
                 onChanged: onChanged,
                 buttonStyleData: ButtonStyleData(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -89,6 +115,7 @@ class LabelDropDownSearchable extends StatelessWidget {
                 ),
                 menuItemStyleData: const MenuItemStyleData(
                   height: 40,
+                  padding: EdgeInsets.zero,
                 ),
                 dropdownSearchData: DropdownSearchData(
                   searchController: textEditingController,

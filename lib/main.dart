@@ -9,17 +9,19 @@ import 'package:ecommerce_admin/category/presentation/widgets/edit_category.dart
 import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/core_bloc_builder.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/loading_widget.dart';
+import 'package:ecommerce_admin/coupons/bloc/coupon_bloc.dart';
+import 'package:ecommerce_admin/coupons/presentation/pages/coupons_page.dart';
 import 'package:ecommerce_admin/product/bloc/detail_product_bloc.dart';
 import 'package:ecommerce_admin/product/bloc/product_bloc.dart';
 import 'package:ecommerce_admin/product/presentation/widgets/add_product.dart';
+import 'package:ecommerce_admin/review/bloc/review_bloc.dart';
 import 'package:ecommerce_admin/review/presentation/widgets/edit_reviews.dart';
 import 'package:ecommerce_admin/review/presentation/widgets/reviews_widget.dart';
+import 'package:ecommerce_admin/settings/bloc/shipping_bloc.dart';
 import 'package:ecommerce_admin/settings/presentation/pages/edit_shipping_widget.dart';
 import 'package:ecommerce_admin/settings/presentation/pages/shipping_widget.dart';
-import 'package:ecommerce_admin/settings/presentation/pages/tax_widget.dart';
 import 'package:ecommerce_admin/settings/presentation/pages/view_my_store.dart';
 import 'package:ecommerce_admin/tags/presentation/widgets/edit_tags.dart';
-import 'package:ecommerce_admin/tags/presentation/widgets/tags_widget.dart';
 import 'package:ecommerce_admin/theme/app_theme.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/app_image.dart';
@@ -35,6 +37,7 @@ import 'product/model/product.dart';
 import 'product/presentation/widgets/product_table.dart';
 import 'settings/presentation/pages/payments_widget.dart';
 import 'tags/bloc/tag_bloc.dart';
+import 'tags/presentation/widgets/tags_widget.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
@@ -58,6 +61,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DetailProductBloc()),
         BlocProvider(create: (context) => CategoryBloc()),
         BlocProvider(create: (context) => TagBloc()),
+        BlocProvider(create: (context) => ReviewBloc()),
+        BlocProvider(create: (context) => ShippingBloc()),
+        BlocProvider(create: (context) => CouponBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
@@ -182,18 +188,20 @@ class _MyHomePageState extends State<MyHomePage> {
         return ReviewsWidget(products: products);
       case PageType.editReview:
         return const EditReviews();
-      case PageType.tax:
-        return const TaxWidget();
+      /* case PageType.tax:
+        return const TaxWidget(); */
       case PageType.shipping:
-        return SettingShippingWidget(
-          products: products,
-        );
+        return const SettingShippingWidget();
       case PageType.editShipping:
         return const EditShippingWidget();
       case PageType.payments:
         return const PaymentsWidget();
       case PageType.viewMyStore:
         return const ViewMyStore();
+      case PageType.coupons:
+        return const CouponsPage();
+      case PageType.editCoupons:
+        return Container();
       default:
         return Container();
     }
@@ -208,11 +216,13 @@ class LabelDropDown extends StatelessWidget {
     required this.hintText,
     required this.value,
     required this.onChanged,
+    this.width,
   });
   final String label;
   final List<String> items;
   final String hintText;
   final String? value;
+  final double? width;
   final void Function(String?)? onChanged;
 
   @override
@@ -245,6 +255,7 @@ class LabelDropDown extends StatelessWidget {
             child: DropDownWidget(
               hintText: hintText,
               height: 40,
+              width: width,
               items: items,
               onChanged: onChanged,
               value: value,
@@ -385,7 +396,7 @@ class LinkTextButton extends StatelessWidget {
   }
 }
 
-class DropDownWidget extends StatelessWidget {
+class DropDownWidget<T> extends StatelessWidget {
   const DropDownWidget({
     super.key,
     required this.hintText,
@@ -398,29 +409,29 @@ class DropDownWidget extends StatelessWidget {
   });
 
   final String hintText;
-  final List<String> items;
+  final List<T> items;
   final double? width;
   final double? height;
   final TextStyle? hintStyle;
-  final String? value;
-  final Function(String?)? onChanged;
+  final T? value;
+  final Function(T?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     return DropdownButtonHideUnderline(
-      child: DropdownButton2<String>(
+      child: DropdownButton2<T>(
         isExpanded: false,
         hint: Text(
           hintText,
           style: hintStyle ?? textTheme.bodyMedium,
         ),
         items: items
-            .map((String item) => DropdownMenuItem<String>(
+            .map((T item) => DropdownMenuItem<T>(
                   value: item,
                   child: Text(
-                    item,
+                    item.toString(),
                     style: const TextStyle(
                       fontSize: 14,
                     ),

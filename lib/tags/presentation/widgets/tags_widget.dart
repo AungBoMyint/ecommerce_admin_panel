@@ -137,6 +137,7 @@ class _TagsWidgetState extends State<TagsWidget> {
                                 return const Expanded(child: LoadingWidget());
                               default:
                                 return DataTable2(
+                                  scrollController: _scrollController,
                                   minWidth: 200,
                                   border: TableBorder.symmetric(
                                       outside: BorderSide(

@@ -316,7 +316,7 @@ class _VariationsWidgetState extends State<VariationsWidget> {
                         "Stock status",
                         style: textTheme.bodyMedium,
                       ),
-                      DropDownWidget(
+                      DropDownWidget<String>(
                         width: 250,
                         onChanged: (v) => changeStockStatus(item.key, v ?? ""),
                         value: variations[item.key]?["stock-status"],

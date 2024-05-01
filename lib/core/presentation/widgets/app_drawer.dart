@@ -236,6 +236,27 @@ class AppDrawer extends StatelessWidget {
                     );
                   }),
                   10.vSpace(),
+                  BlocBuilder<CoreBloc, CoreState>(
+                    builder: (context, state) {
+                      return InkWell(
+                        onTap: () {
+                          context.read<CoreBloc>().add(
+                                ChangePageEvent(page: PageType.coupons),
+                              );
+                        },
+                        child: Text(
+                          "Coupons",
+                          style: textTheme.displaySmall?.copyWith(
+                            color: (state.page == PageType.coupons ||
+                                    state.page == PageType.editCoupons)
+                                ? Colors.white
+                                : Colors.grey.shade400,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  10.vSpace(),
                   //Tax
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(

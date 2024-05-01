@@ -26,8 +26,16 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        context.read<CategoryBloc>().add(FetchMoreCategoryEvent());
+      }
+    });
     context.read<CategoryBloc>().add(FetchCategoryEvent());
     super.initState();
   }
@@ -89,6 +97,7 @@ class _CategoriesState extends State<Categories> {
                         return const Expanded(child: LoadingWidget());
                       default:
                         return BaseTable(
+                          scrollController: _scrollController,
                           flex: 2,
                           actionsWidget: Row(
                             children: [

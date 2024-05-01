@@ -23,6 +23,10 @@ enum PageType {
   shipping,
   editShipping,
   payments,
+  coupons,
+  editCoupons,
+  orders,
+  editOrders,
 }
 
 // ignore: constant_identifier_names
@@ -97,4 +101,20 @@ class ErrorText extends StatelessWidget {
           color: Colors.red,
         ));
   }
+}
+
+String formatDMYDash(DateTime dateTime) {
+  var day = "";
+  var month = "";
+  if (dateTime.day < 10) {
+    day = "0${dateTime.day}";
+  } else {
+    day = "${dateTime.day}";
+  }
+  if (dateTime.month < 10) {
+    month = "0${dateTime.month}";
+  } else {
+    month = "${dateTime.month}";
+  }
+  return "$day-$month-${dateTime.year}";
 }

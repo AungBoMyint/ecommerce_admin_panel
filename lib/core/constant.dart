@@ -54,3 +54,24 @@ class Category {
   Category(
       {required this.name, required this.hasChild, required this.children});
 }
+
+List<String> freeShippingTypeList = [
+  "A valid free shipping coupon",
+  "A minumun order amount",
+  "A minumun order amount OR a coupon",
+  "A minumun order amount AND a coupon",
+];
+
+List<String> products = [
+  "Basic Programming Language",
+  "AI model tranning with Python",
+  "Advance English Course",
+  "Understanding Design Pattern",
+  "Figma Course For Beginner",
+  "Photoshop Full Course",
+  "Machine Learning With Python",
+  "Java for Bank Network",
+  "What are you doing right now?",
+  "Understanding what you are in real life!",
+  "Know yourself about your job.",
+];

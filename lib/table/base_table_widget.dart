@@ -9,11 +9,13 @@ class BaseTable extends StatelessWidget {
     required this.rowList,
     this.flex,
     required this.actionsWidget,
+    this.scrollController,
   });
 
   final List<Widget> columnList;
   final List<List<DataCell>> rowList;
   final int? flex;
+  final ScrollController? scrollController;
   final Widget actionsWidget;
 
   @override
@@ -25,6 +27,7 @@ class BaseTable extends StatelessWidget {
           actionsWidget,
           Expanded(
             child: DataTable2(
+              scrollController: scrollController,
               border: TableBorder.symmetric(
                   outside: BorderSide(color: Colors.grey.shade300)),
               columns: List.generate(

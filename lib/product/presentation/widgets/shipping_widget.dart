@@ -1,10 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin/core/data/form_data.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/drop_down_widget.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-import '../../../main.dart';
 
 class ShippingWidget extends StatefulWidget {
   const ShippingWidget({

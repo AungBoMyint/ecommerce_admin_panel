@@ -1,9 +1,10 @@
-import 'package:ecommerce_admin/main.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+
+import 'link_text_button.dart';
 
 class TopActions extends StatelessWidget {
   const TopActions({
@@ -54,7 +55,7 @@ class TopActions extends StatelessWidget {
             : Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  margin: const EdgeInsets.only(right: 20),
+                  margin: const EdgeInsets.only(right: 20, left: 20),
                   width: 400,
                   height: 35,
                   child: Row(
@@ -74,7 +75,6 @@ class TopActions extends StatelessWidget {
                       10.hSpace(),
                       //search btn
                       LinkTextButton(
-                        
                         fillColor: linkBTNColor,
                         onPressed: onSearch,
                         text: searchHint,

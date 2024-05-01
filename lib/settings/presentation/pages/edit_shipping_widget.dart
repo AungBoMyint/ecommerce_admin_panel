@@ -1,6 +1,7 @@
 import 'package:ecommerce_admin/core/constant.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/drop_down_searchable.dart';
-import 'package:ecommerce_admin/main.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/label_dropdown.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
 import 'package:ecommerce_admin/settings/model/shipping_method.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
@@ -51,6 +52,7 @@ class EditShippingWidget extends StatelessWidget {
                       child: BlocBuilder<ShippingBloc, ShippingState>(
                         builder: (context, state) {
                           return LabelDropDownSearchable(
+                            getName: (v) => v,
                             items: state.zoneNames,
                             textEditingController: TextEditingController(),
                             hintText: "select zone",
@@ -89,6 +91,7 @@ class EditShippingWidget extends StatelessWidget {
                       child: BlocBuilder<ShippingBloc, ShippingState>(
                         builder: (context, state) {
                           return LabelDropDownSearchable(
+                            getName: (v) => v,
                             items: state.zoneRegions,
                             selectedItems: state.zoneRegionList.value,
                             textEditingController: TextEditingController(),

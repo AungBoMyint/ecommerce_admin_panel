@@ -3,10 +3,12 @@ import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/core/bloc_base/base_bloc.dart';
 import 'package:ecommerce_admin/core/data/actions_status.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/drop_down_searchable.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/drop_down_widget.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/form_error_conditions.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/loading_widget.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/main_title_text.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/top_actions.dart';
-import 'package:ecommerce_admin/main.dart';
 import 'package:ecommerce_admin/review/bloc/review_bloc.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
@@ -292,6 +294,7 @@ class ReviewForm extends StatelessWidget {
           BlocBuilder<ReviewBloc, ReviewState>(
             builder: (context, state) {
               return LabelDropDownSearchable(
+                getName: (v) => v,
                 textEditingController: TextEditingController(),
                 label: "Author",
                 hintText: "None",
@@ -439,6 +442,7 @@ class ReviewForm extends StatelessWidget {
           BlocBuilder<ReviewBloc, ReviewState>(
             builder: (context, state) {
               return LabelDropDownSearchable(
+                getName: (v) => v,
                 textEditingController: TextEditingController(),
                 label: "Product",
                 hintText: "None",

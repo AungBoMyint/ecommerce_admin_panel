@@ -1,13 +1,15 @@
 import 'dart:developer';
 
 import 'package:ecommerce_admin/core/data/form_data.dart';
-import 'package:ecommerce_admin/main.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/drop_down_widget.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+
+import '../../../core/presentation/widgets/link_text_button.dart';
 
 class AttributesWidget extends StatefulWidget {
   const AttributesWidget({

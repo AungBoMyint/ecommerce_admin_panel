@@ -1,3 +1,4 @@
+import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +12,8 @@ class ProductFunctionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final iconOnly = size.width < SMALL_TABLET;
     final textTheme = Theme.of(context).textTheme;
     return BlocBuilder<DetailProductBloc, DetailProductState>(
       builder: (context, state) {
@@ -21,6 +24,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                 : BlocBuilder<DetailProductBloc, DetailProductState>(
                     builder: (context, state) {
                       return RowLinkButton(
+                        iconOnly: iconOnly,
                         onPressed: () {
                           context.read<DetailProductBloc>().add(
                                 ChangeProductDataTab(
@@ -45,6 +49,7 @@ class ProductFunctionsWidget extends StatelessWidget {
             BlocBuilder<DetailProductBloc, DetailProductState>(
                 builder: (context, state) {
               return RowLinkButton(
+                iconOnly: iconOnly,
                 onPressed: () {
                   context.read<DetailProductBloc>().add(
                         ChangeProductDataTab(
@@ -69,6 +74,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                 : BlocBuilder<DetailProductBloc, DetailProductState>(
                     builder: (context, state) {
                     return RowLinkButton(
+                      iconOnly: iconOnly,
                       onPressed: () {
                         context.read<DetailProductBloc>().add(
                               ChangeProductDataTab(
@@ -91,6 +97,7 @@ class ProductFunctionsWidget extends StatelessWidget {
             BlocBuilder<DetailProductBloc, DetailProductState>(
                 builder: (context, state) {
               return RowLinkButton(
+                iconOnly: iconOnly,
                 onPressed: () {
                   context.read<DetailProductBloc>().add(
                         ChangeProductDataTab(
@@ -113,6 +120,7 @@ class ProductFunctionsWidget extends StatelessWidget {
             BlocBuilder<DetailProductBloc, DetailProductState>(
                 builder: (context, state) {
               return RowLinkButton(
+                iconOnly: iconOnly,
                 onPressed: () {
                   context.read<DetailProductBloc>().add(
                         ChangeProductDataTab(
@@ -137,6 +145,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                 builder: (context, state) {
               return state.productType == ProductType.variableProduct
                   ? RowLinkButton(
+                      iconOnly: iconOnly,
                       onPressed: () {
                         context.read<DetailProductBloc>().add(
                               ChangeProductDataTab(
@@ -162,6 +171,7 @@ class ProductFunctionsWidget extends StatelessWidget {
             BlocBuilder<DetailProductBloc, DetailProductState>(
                 builder: (context, state) {
               return RowLinkButton(
+                iconOnly: iconOnly,
                 onPressed: () {
                   context.read<DetailProductBloc>().add(
                         ChangeProductDataTab(
@@ -184,6 +194,7 @@ class ProductFunctionsWidget extends StatelessWidget {
             BlocBuilder<DetailProductBloc, DetailProductState>(
                 builder: (context, state) {
               return RowLinkButton(
+                iconOnly: iconOnly,
                 onPressed: () {
                   context.read<DetailProductBloc>().add(
                         ChangeProductDataTab(

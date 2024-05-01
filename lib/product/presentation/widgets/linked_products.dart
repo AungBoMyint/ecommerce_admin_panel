@@ -45,6 +45,7 @@ class _LinkedProductsState extends State<LinkedProducts> {
                 child: Wrap(
                   children: [
                     LabelDropDownSearchable(
+                      getName: (v) => v,
                       onChanged: changeUpSells,
                       items: const [
                         "Basic Programming Language",
@@ -116,6 +117,7 @@ class _LinkedProductsState extends State<LinkedProducts> {
                 child: Wrap(
                   children: [
                     LabelDropDownSearchable(
+                      getName: (v) => v,
                       onChanged: changeCrossSells,
                       items: const [
                         "Basic Programming Language",

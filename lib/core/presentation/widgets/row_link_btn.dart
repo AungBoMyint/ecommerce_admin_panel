@@ -1,5 +1,6 @@
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../../theme/colors.dart';
 
@@ -11,12 +12,14 @@ class RowLinkButton extends StatelessWidget {
     this.textStyle,
     required this.text,
     this.onPressed,
+    this.iconOnly = false,
   });
   final Color? bgColor;
   final Color? iColor;
   final TextStyle? textStyle;
   final String text;
   final void Function()? onPressed;
+  final bool iconOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class RowLinkButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor ?? linkBTNColor,
         ),
-        width: 200,
+        width: iconOnly ? 50 : 200,
         child: Row(
           children: [
             Icon(
@@ -36,14 +39,16 @@ class RowLinkButton extends StatelessWidget {
               color: iColor ?? linkBTNColor,
               size: 15,
             ),
-            10.hSpace(),
-            Text(
-              text,
-              style: textStyle ??
-                  textTheme.bodyMedium?.copyWith(
-                    color: linkBTNColor,
-                  ),
-            )
+            iconOnly ? Gap(0) : 10.hSpace(),
+            iconOnly
+                ? Gap(0)
+                : Text(
+                    text,
+                    style: textStyle ??
+                        textTheme.bodyMedium?.copyWith(
+                          color: linkBTNColor,
+                        ),
+                  )
           ],
         ),
       ),

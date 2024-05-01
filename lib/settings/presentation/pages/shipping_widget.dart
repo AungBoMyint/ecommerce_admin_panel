@@ -2,13 +2,16 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/core/bloc_base/base_bloc.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/drop_down_searchable.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/drop_down_widget.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/label_dropdown.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/top_actions.dart';
-import 'package:ecommerce_admin/main.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import '../../../core/presentation/widgets/main_title_text.dart';
 import '../../../theme/colors.dart';
 import '../../bloc/shipping_bloc.dart';
 
@@ -66,6 +69,7 @@ class _SettingShippingWidgetState extends State<SettingShippingWidget> {
                           child: BlocBuilder<ShippingBloc, ShippingState>(
                             builder: (context, state) {
                               return LabelDropDownSearchable(
+                                getName: (v) => v,
                                 items: state.zoneNames,
                                 textEditingController: TextEditingController(),
                                 hintText: "select zone",
@@ -96,6 +100,7 @@ class _SettingShippingWidgetState extends State<SettingShippingWidget> {
                           child: BlocBuilder<ShippingBloc, ShippingState>(
                             builder: (context, state) {
                               return LabelDropDownSearchable(
+                                getName: (v) => v,
                                 items: state.zoneRegions,
                                 selectedItems: state.zoneRegionList.value,
                                 textEditingController: TextEditingController(),

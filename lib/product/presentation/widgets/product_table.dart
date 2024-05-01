@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/drop_down_widget.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/loading_widget.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/main_title_text.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/top_actions.dart';
-import 'package:ecommerce_admin/main.dart';
 import 'package:ecommerce_admin/product/bloc/product_bloc.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
@@ -124,8 +126,9 @@ List<List<DataCell>> rowList(BuildContext context, List<Product> products) =>
     });
 List<List<DataCell>> getRowList(BuildContext context, List<Product> products) {
   final size = MediaQuery.of(context).size;
+  var list = rowList(context, products);
+
   if (size.width < DESKTOP) {
-    var list = rowList(context, products);
     for (var cellList in list) {
       cellList.removeAt(1);
       cellList.removeAt(2);
@@ -136,6 +139,12 @@ List<List<DataCell>> getRowList(BuildContext context, List<Product> products) {
         cellList.removeAt(3);
         cellList.removeAt(3);
       }
+      if (size.width < SMALL_MOBILE) {
+        for (var cellList in list) {
+          cellList.removeAt(2);
+        }
+        return list;
+      }
     }
     return list;
   }
@@ -144,6 +153,7 @@ List<List<DataCell>> getRowList(BuildContext context, List<Product> products) {
 
 List<Widget> getColumnList(BuildContext context) {
   final size = MediaQuery.of(context).size;
+
   if (size.width < DESKTOP) {
     var list = columnList(context);
     list.removeAt(1);
@@ -152,6 +162,9 @@ List<Widget> getColumnList(BuildContext context) {
     if (size.width < XSTABLET) {
       list.removeAt(3);
       list.removeAt(3);
+      if (size.width < SMALL_MOBILE) {
+        list.removeAt(2);
+      }
     }
     return list;
   }
@@ -264,81 +277,90 @@ class _AllProductsState extends State<AllProducts> {
 }
 
 Widget getProductActionWidget(BuildContext context) {
-
-  return Row(
-    children: [
-      20.hSpace(),
-      BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          return DropDownWidget(
-            hintText: "Actions",
-            items: const ["Edit", "Delete"],
-            width: 100,
-            value: state.selectedAction.isEmpty ? null : state.selectedAction,
-            onChanged: (value) {
-              context
+  return Container(
+    alignment: Alignment.centerLeft,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 20,
+    ),
+    child: Wrap(
+      runSpacing: 10,
+      children: [
+        BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            return DropDownWidget(
+              hintText: "Actions",
+              items: const ["Edit", "Delete"],
+              width: 100,
+              value: state.selectedAction.isEmpty ? null : state.selectedAction,
+              onChanged: (value) {
+                context
+                    .read<ProductBloc>()
+                    .add(ChangeDropDownActions(value: value ?? ""));
+              },
+            );
+          },
+        ),
+        10.hSpace(),
+        LinkTextButton(
+          width: 100,
+          height: 35,
+          onPressed: () {
+            context.read<ProductBloc>().add(ActionApplyEvent());
+          },
+          text: "Apply",
+          fillColor: linkBTNColor,
+        ),
+        40.hSpace(),
+        BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            return DropDownWidget(
+              onChanged: (v) => context
                   .read<ProductBloc>()
-                  .add(ChangeDropDownActions(value: value ?? ""));
-            },
-          );
-        },
-      ),
-      10.hSpace(),
-      LinkTextButton(
-        height: 35,
-        onPressed: () {
-          context.read<ProductBloc>().add(ActionApplyEvent());
-        },
-        text: "Apply",
-        fillColor: linkBTNColor,
-      ),
-      40.hSpace(),
-      BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          return DropDownWidget(
-            onChanged: (v) => context
-                .read<ProductBloc>()
-                .add(ChangeDropDownCategory(value: v ?? "")),
-            value:
-                state.selectedCategory.isEmpty ? null : state.selectedCategory,
-            hintText: "Select a category",
-            items: const ["IT", "Health Care", "Illustration"],
-          );
-        },
-      ),
-      20.hSpace(),
-      BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
+                  .add(ChangeDropDownCategory(value: v ?? "")),
+              value: state.selectedCategory.isEmpty
+                  ? null
+                  : state.selectedCategory,
+              hintText: "Select a category",
+              items: const ["IT", "Health Care", "Illustration"],
+            );
+          },
+        ),
+        20.hSpace(),
+        BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            return DropDownWidget(
+              width: 180,
+              hintText: "Filter by product type",
+              items: const ["Simple product", "Variable product"],
+              value: state.produtType.isEmpty ? null : state.produtType,
+              onChanged: (v) => context.read<ProductBloc>().add(
+                    ChangeDropDownProductType(value: v ?? ""),
+                  ),
+            );
+          },
+        ),
+        20.hSpace(),
+        BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
           return DropDownWidget(
             width: 180,
-            hintText: "Filter by product type",
-            items: const ["Simple product", "Variable product"],
-            value: state.produtType.isEmpty ? null : state.produtType,
+            hintText: "Filter by stock status",
+            items: const ["In stock", "Out of stock"],
+            value: state.stockStatus.isEmpty ? null : state.stockStatus,
             onChanged: (v) => context.read<ProductBloc>().add(
-                  ChangeDropDownProductType(value: v ?? ""),
+                  ChangeDropDownStockStatus(value: v ?? ""),
                 ),
           );
-        },
-      ),
-      20.hSpace(),
-      BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-        return DropDownWidget(
-          width: 180,
-          hintText: "Filter by stock status",
-          items: const ["In stock", "Out of stock"],
-          value: state.stockStatus.isEmpty ? null : state.stockStatus,
-          onChanged: (v) => context.read<ProductBloc>().add(
-                ChangeDropDownStockStatus(value: v ?? ""),
-              ),
-        );
-      }),
-      10.hSpace(),
-      LinkTextButton(
-        height: 35,
-        text: "Filter",
-        onPressed: () => context.read<ProductBloc>().add(FilterProductEvent()),
-        fillColor: linkBTNColor,
-      ),
-    ],
+        }),
+        10.hSpace(),
+        LinkTextButton(
+          height: 35,
+          width: 100,
+          text: "Filter",
+          onPressed: () =>
+              context.read<ProductBloc>().add(FilterProductEvent()),
+          fillColor: linkBTNColor,
+        ),
+      ],
+    ),
   );
 }

@@ -37,8 +37,11 @@ const double TABLET = 1145.0;
 const double STABLET = 855.0;
 // ignore: constant_identifier_names
 const double XSTABLET = 722.0;
+const double SMALL_TABLET = 560;
 // ignore: constant_identifier_names
 const double MOBILE = 467.0;
+
+const double SMALL_MOBILE = 380.0;
 
 //***********Input Keys */
 const String regularPrice = "regularPrice";

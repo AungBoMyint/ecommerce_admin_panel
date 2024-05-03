@@ -14,6 +14,7 @@ import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/data/actions_status.dart';
@@ -28,6 +29,8 @@ class CouponsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final size = MediaQuery.of(context).size;
+    final isMSTABLET = size.width < MSTABLET;
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
@@ -99,12 +102,14 @@ class CouponsPage extends StatelessWidget {
                       BlocBuilder<CouponBloc, CouponState>(
                         builder: (context, state) {
                           return RowLinkButton(
+                            iconOnly: isMSTABLET,
                             onPressed: () {
                               context.read<CouponBloc>().add(
                                   ChangeCouponDataTab(
                                       tab: CouponDataTab.general));
                             },
                             text: "General",
+                            icon: FontAwesomeIcons.codeFork,
                             bgColor: state.dataTab == CouponDataTab.general
                                 ? Colors.grey.shade200
                                 : Colors.white,
@@ -120,11 +125,13 @@ class CouponsPage extends StatelessWidget {
                       BlocBuilder<CouponBloc, CouponState>(
                         builder: (context, state) {
                           return RowLinkButton(
+                            iconOnly: isMSTABLET,
                             onPressed: () {
                               context.read<CouponBloc>().add(
                                   ChangeCouponDataTab(
                                       tab: CouponDataTab.usageRestriction));
                             },
+                            icon: FontAwesomeIcons.plug,
                             text: "Usage restriction",
                             bgColor:
                                 state.dataTab == CouponDataTab.usageRestriction
@@ -229,27 +236,33 @@ class CouponsPage extends StatelessWidget {
                               style: textTheme.displaySmall,
                             ),
                           ),
-                          DataColumn2(
-                            size: ColumnSize.S,
-                            label: Text(
-                              "Amount discounted",
-                              style: textTheme.displaySmall,
-                            ),
-                          ),
-                          DataColumn2(
-                            size: ColumnSize.S,
-                            label: Text(
-                              "Created",
-                              style: textTheme.displaySmall,
-                            ),
-                          ),
-                          DataColumn2(
-                            size: ColumnSize.S,
-                            label: Text(
-                              "Expired",
-                              style: textTheme.displaySmall,
-                            ),
-                          ),
+                          if (!isMSTABLET) ...[
+                            DataColumn2(
+                              size: ColumnSize.S,
+                              label: Text(
+                                "Amount discounted",
+                                style: textTheme.displaySmall,
+                              ),
+                            )
+                          ],
+                          if (!isMSTABLET) ...[
+                            DataColumn2(
+                              size: ColumnSize.S,
+                              label: Text(
+                                "Created",
+                                style: textTheme.displaySmall,
+                              ),
+                            )
+                          ],
+                          if (!isMSTABLET) ...[
+                            DataColumn2(
+                              size: ColumnSize.S,
+                              label: Text(
+                                "Expired",
+                                style: textTheme.displaySmall,
+                              ),
+                            )
+                          ],
                           DataColumn2(
                             size: ColumnSize.S,
                             label: Text(
@@ -319,28 +332,34 @@ class CouponsPage extends StatelessWidget {
                                 ),
                               ),
                               //amounted discount
-                              DataCell(
-                                Text(
-                                  item.amountDiscounted,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: textTheme.headlineMedium,
-                                ),
-                              ),
+                              if (!isMSTABLET) ...[
+                                DataCell(
+                                  Text(
+                                    item.amountDiscounted,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: textTheme.headlineMedium,
+                                  ),
+                                )
+                              ],
                               //created
-                              DataCell(
-                                Text(
-                                  item.created.toString(),
-                                  style: textTheme.headlineMedium,
-                                ),
-                              ),
+                              if (!isMSTABLET) ...[
+                                DataCell(
+                                  Text(
+                                    item.created.toString(),
+                                    style: textTheme.headlineMedium,
+                                  ),
+                                )
+                              ],
                               //expired
-                              DataCell(
-                                Text(
-                                  item.expired.toString(),
-                                  style: textTheme.headlineMedium,
-                                ),
-                              ),
+                              if (!isMSTABLET) ...[
+                                DataCell(
+                                  Text(
+                                    item.expired.toString(),
+                                    style: textTheme.headlineMedium,
+                                  ),
+                                )
+                              ],
                               //type
                               DataCell(
                                 Text(

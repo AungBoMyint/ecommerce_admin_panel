@@ -2,14 +2,14 @@ import 'package:ecommerce_admin/core/constant.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/drop_down_searchable.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/label_dropdown.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
-import 'package:ecommerce_admin/settings/model/shipping_method.dart';
+import 'package:ecommerce_admin/shipping/model/shipping_method.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../../bloc/shipping_bloc.dart';
+import '../bloc/shipping_bloc.dart';
 
 class EditShippingWidget extends StatelessWidget {
   const EditShippingWidget({super.key});

@@ -77,9 +77,12 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
-                      onTap: () => context
-                          .read<CoreBloc>()
-                          .add(ChangePageEvent(page: PageType.allProducts)),
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.allProducts));
+                      },
                       child: Text(
                         "All Products",
                         style: textTheme.displaySmall?.copyWith(
@@ -98,9 +101,12 @@ class AppDrawer extends StatelessWidget {
                   10.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
-                      onTap: () => context
-                          .read<CoreBloc>()
-                          .add(ChangePageEvent(page: PageType.addProduct)),
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.addProduct));
+                      },
                       child: Text(
                         "Add New",
                         style: textTheme.displaySmall?.copyWith(
@@ -113,9 +119,12 @@ class AppDrawer extends StatelessWidget {
                   }),
                   10.vSpace(),
                   InkWell(
-                    onTap: () => context
-                        .read<CoreBloc>()
-                        .add(ChangePageEvent(page: PageType.categories)),
+                    onTap: () {
+                      Scaffold.of(context).closeDrawer();
+                      context
+                          .read<CoreBloc>()
+                          .add(ChangePageEvent(page: PageType.categories));
+                    },
                     child: CoreBlocBuilder(builder: (state) {
                       return Text(
                         "Categories",
@@ -136,6 +145,7 @@ class AppDrawer extends StatelessWidget {
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
                       onTap: () {
+                        Scaffold.of(context).closeDrawer();
                         context.read<CoreBloc>().add(
                               ChangePageEvent(page: PageType.tags),
                             );
@@ -152,10 +162,35 @@ class AppDrawer extends StatelessWidget {
                     );
                   }),
                   10.vSpace(),
+                  InkWell(
+                    onTap: () {
+                      Scaffold.of(context).closeDrawer();
+                      context
+                          .read<CoreBloc>()
+                          .add(ChangePageEvent(page: PageType.orders));
+                    },
+                    child: CoreBlocBuilder(builder: (state) {
+                      return Text(
+                        "Orders",
+                        style: textTheme.displaySmall?.copyWith(
+                          color: (state.page == PageType.orders ||
+                                  state.page == PageType.editOrders)
+                              ? Colors.white
+                              : Colors.grey.shade400,
+                          fontWeight: (state.page == PageType.orders ||
+                                  state.page == PageType.editOrders)
+                              ? FontWeight.bold
+                              : null,
+                        ),
+                      );
+                    }),
+                  ),
+                  10.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(
                     builder: (context, state) {
                       return InkWell(
                         onTap: () {
+                          Scaffold.of(context).closeDrawer();
                           context.read<CoreBloc>().add(
                                 ChangePageEvent(page: PageType.reviews),
                               );
@@ -219,9 +254,12 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
-                      onTap: () => context
-                          .read<CoreBloc>()
-                          .add(ChangePageEvent(page: PageType.viewMyStore)),
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.viewMyStore));
+                      },
                       child: Text(
                         "View my store",
                         style: textTheme.displaySmall?.copyWith(
@@ -240,6 +278,7 @@ class AppDrawer extends StatelessWidget {
                     builder: (context, state) {
                       return InkWell(
                         onTap: () {
+                          Scaffold.of(context).closeDrawer();
                           context.read<CoreBloc>().add(
                                 ChangePageEvent(page: PageType.coupons),
                               );
@@ -256,13 +295,16 @@ class AppDrawer extends StatelessWidget {
                       );
                     },
                   ),
-                  10.vSpace(),
+                  /* 10.vSpace(),
                   //Tax
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
-                      onTap: () => context
-                          .read<CoreBloc>()
-                          .add(ChangePageEvent(page: PageType.tax)),
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.tax));
+                      },
                       child: Text(
                         "Tax",
                         style: textTheme.displaySmall?.copyWith(
@@ -276,14 +318,17 @@ class AppDrawer extends StatelessWidget {
                       ),
                     );
                   }),
-
+ */
                   10.vSpace(),
                   //Shipping
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
-                      onTap: () => context
-                          .read<CoreBloc>()
-                          .add(ChangePageEvent(page: PageType.shipping)),
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.shipping));
+                      },
                       child: Text(
                         "Shipping",
                         style: textTheme.displaySmall?.copyWith(
@@ -303,9 +348,12 @@ class AppDrawer extends StatelessWidget {
                   10.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
-                      onTap: () => context
-                          .read<CoreBloc>()
-                          .add(ChangePageEvent(page: PageType.payments)),
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.payments));
+                      },
                       child: Text(
                         "Payments",
                         style: textTheme.displaySmall?.copyWith(

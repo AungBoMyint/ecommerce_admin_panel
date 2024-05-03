@@ -6,4 +6,5 @@ class AppImage {
   static const String master = "assets/image/master.png";
   static const String american = "assets/image/american-express.png";
   static const String drawer = "assets/image/bars.png";
+  static const String emptyProfile = "assets/image/empty_profile.png";
 }

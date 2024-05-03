@@ -1,6 +1,7 @@
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../core/presentation/widgets/row_link_btn.dart';
 import '../../bloc/detail_product_bloc.dart';
@@ -24,6 +25,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                 : BlocBuilder<DetailProductBloc, DetailProductState>(
                     builder: (context, state) {
                       return RowLinkButton(
+                        icon: FontAwesomeIcons.codeFork,
                         iconOnly: iconOnly,
                         onPressed: () {
                           context.read<DetailProductBloc>().add(
@@ -37,7 +39,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                             ? Colors.grey.shade200
                             : Colors.white,
                         iColor: state.productDataTab == ProductDataTab.general
-                            ? Colors.grey.shade400
+                            ? Colors.grey.shade600
                             : null,
                         textStyle:
                             state.productDataTab == ProductDataTab.general
@@ -58,11 +60,12 @@ class ProductFunctionsWidget extends StatelessWidget {
                       );
                 },
                 text: "Inventory",
+                icon: FontAwesomeIcons.noteSticky,
                 bgColor: state.productDataTab == ProductDataTab.inventory
                     ? Colors.grey.shade200
                     : Colors.white,
                 iColor: state.productDataTab == ProductDataTab.inventory
-                    ? Colors.grey.shade400
+                    ? Colors.grey.shade600
                     : null,
                 textStyle: state.productDataTab == ProductDataTab.inventory
                     ? textTheme.bodyMedium
@@ -83,11 +86,12 @@ class ProductFunctionsWidget extends StatelessWidget {
                             );
                       },
                       text: "Shipping",
+                      icon: FontAwesomeIcons.truck,
                       bgColor: state.productDataTab == ProductDataTab.shipping
                           ? Colors.grey.shade200
                           : Colors.white,
                       iColor: state.productDataTab == ProductDataTab.shipping
-                          ? Colors.grey.shade400
+                          ? Colors.grey.shade600
                           : null,
                       textStyle: state.productDataTab == ProductDataTab.shipping
                           ? textTheme.bodyMedium
@@ -106,11 +110,12 @@ class ProductFunctionsWidget extends StatelessWidget {
                       );
                 },
                 text: "Linked Products",
+                icon: FontAwesomeIcons.link,
                 bgColor: state.productDataTab == ProductDataTab.linkedProducts
                     ? Colors.grey.shade200
                     : Colors.white,
                 iColor: state.productDataTab == ProductDataTab.linkedProducts
-                    ? Colors.grey.shade400
+                    ? Colors.grey.shade600
                     : null,
                 textStyle: state.productDataTab == ProductDataTab.linkedProducts
                     ? textTheme.bodyMedium
@@ -121,6 +126,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                 builder: (context, state) {
               return RowLinkButton(
                 iconOnly: iconOnly,
+                icon: FontAwesomeIcons.solidNoteSticky,
                 onPressed: () {
                   context.read<DetailProductBloc>().add(
                         ChangeProductDataTab(
@@ -133,7 +139,7 @@ class ProductFunctionsWidget extends StatelessWidget {
                     ? Colors.grey.shade200
                     : Colors.white,
                 iColor: state.productDataTab == ProductDataTab.attributes
-                    ? Colors.grey.shade400
+                    ? Colors.grey.shade600
                     : null,
                 textStyle: state.productDataTab == ProductDataTab.attributes
                     ? textTheme.bodyMedium
@@ -153,12 +159,13 @@ class ProductFunctionsWidget extends StatelessWidget {
                               ),
                             );
                       },
+                      icon: FontAwesomeIcons.gear,
                       text: "Variations",
                       bgColor: state.productDataTab == ProductDataTab.variations
                           ? Colors.grey.shade200
                           : Colors.white,
                       iColor: state.productDataTab == ProductDataTab.variations
-                          ? Colors.grey.shade400
+                          ? Colors.grey.shade600
                           : null,
                       textStyle:
                           state.productDataTab == ProductDataTab.variations
@@ -180,11 +187,12 @@ class ProductFunctionsWidget extends StatelessWidget {
                       );
                 },
                 text: "Advanced",
+                icon: FontAwesomeIcons.gear,
                 bgColor: state.productDataTab == ProductDataTab.advanced
                     ? Colors.grey.shade200
                     : Colors.white,
                 iColor: state.productDataTab == ProductDataTab.advanced
-                    ? Colors.grey.shade400
+                    ? Colors.grey.shade600
                     : null,
                 textStyle: state.productDataTab == ProductDataTab.advanced
                     ? textTheme.bodyMedium
@@ -202,12 +210,13 @@ class ProductFunctionsWidget extends StatelessWidget {
                         ),
                       );
                 },
+                icon: FontAwesomeIcons.plug,
                 text: "Get more options",
                 bgColor: state.productDataTab == ProductDataTab.getMoreOptions
                     ? Colors.grey.shade200
                     : Colors.white,
                 iColor: state.productDataTab == ProductDataTab.getMoreOptions
-                    ? Colors.grey.shade400
+                    ? Colors.grey.shade600
                     : null,
                 textStyle: state.productDataTab == ProductDataTab.getMoreOptions
                     ? textTheme.bodyMedium

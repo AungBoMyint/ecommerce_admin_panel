@@ -13,6 +13,7 @@ class RowLinkButton extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.iconOnly = false,
+    this.icon,
   });
   final Color? bgColor;
   final Color? iColor;
@@ -20,6 +21,7 @@ class RowLinkButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
   final bool iconOnly;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class RowLinkButton extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              Icons.settings,
+              icon ?? Icons.settings,
               color: iColor ?? linkBTNColor,
               size: 15,
             ),

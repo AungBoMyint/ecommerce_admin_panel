@@ -49,11 +49,12 @@ class ReviewState extends BaseState<AppReview, ReviewState> {
     RequiredDropdown? author,
   }) {
     return ReviewState(
-      editItem: editItem ?? this.editItem,
+      
       review: review ?? this.review,
       rating: rating ?? this.rating,
       product: product ?? this.product,
       author: author ?? this.author,
+      editItem: editItem ?? this.editItem,
       items: items ?? this.items,
       paginateIndex: paginateIndex ?? this.paginateIndex,
       selectedItems: selectedItems ?? this.selectedItems,

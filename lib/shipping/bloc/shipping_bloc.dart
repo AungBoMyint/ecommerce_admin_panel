@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:bloc/src/bloc.dart';
-import 'package:ecommerce_admin/category/formz/fromz_class.dart';
+import 'package:ecommerce_admin/core/formz/fromz_class.dart';
 import 'package:ecommerce_admin/core/bloc_base/base_bloc.dart';
 import 'package:ecommerce_admin/core/data/actions_status.dart';
-import 'package:ecommerce_admin/settings/model/shipping_method.dart';
-import 'package:ecommerce_admin/settings/model/shipping_zone.dart';
+import 'package:ecommerce_admin/shipping/model/shipping_method.dart';
+import 'package:ecommerce_admin/shipping/model/shipping_zone.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/services.dart';
 import 'package:formz/formz.dart';

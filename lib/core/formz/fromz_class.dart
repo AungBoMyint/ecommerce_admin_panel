@@ -83,3 +83,22 @@ class RequiredImage extends FormzInput<String?, ImageError> {
     return ((value == null) || (value.isEmpty)) ? ImageError.empty : null;
   }
 }
+
+enum IntError {
+  lowValue,
+  hightValue,
+  empty,
+}
+
+class RequiredInt extends FormzInput<int, IntError> {
+  const RequiredInt.pure() : super.pure(0);
+  const RequiredInt.dirty({required int value}) : super.dirty(value);
+
+  @override
+  IntError? validator(int value) {
+    if (value == 0 || value < 0) {
+      return IntError.empty;
+    }
+    return null;
+  }
+}

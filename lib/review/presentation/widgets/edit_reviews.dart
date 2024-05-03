@@ -1,4 +1,4 @@
-import 'package:ecommerce_admin/review/presentation/widgets/reviews_widget.dart';
+import 'package:ecommerce_admin/review/presentation/widgets/review_form.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:flutter/material.dart';
 

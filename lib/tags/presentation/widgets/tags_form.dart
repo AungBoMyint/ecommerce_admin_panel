@@ -1,4 +1,5 @@
 import 'package:ecommerce_admin/utils/extensions.dart';
+import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -14,12 +15,14 @@ class TagForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final width = MediaQuery.of(context).size.width;
+    final isMTABLET = width < MTABLET;
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 100,
+            height: isMTABLET ? 150 : 100,
             child: LayoutBuilder(builder: (context, constraints) {
               return ResponsiveRowColumn(
                 layout: constraints.maxWidth > 420
@@ -89,7 +92,7 @@ class TagForm extends StatelessWidget {
           ),
           const Gap(15),
           SizedBox(
-            height: 120,
+            height: isMTABLET ? 150 : 120,
             child: LayoutBuilder(builder: (context, constraints) {
               return ResponsiveRowColumn(
                 layout: constraints.maxWidth > 420

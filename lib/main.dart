@@ -7,24 +7,26 @@ import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/core_bloc_builder.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/loading_widget.dart';
 import 'package:ecommerce_admin/coupons/bloc/coupon_bloc.dart';
+import 'package:ecommerce_admin/orders/bloc/orders_bloc.dart';
+import 'package:ecommerce_admin/payment/bloc/payment_bloc.dart';
 import 'package:ecommerce_admin/product/bloc/detail_product_bloc.dart';
 import 'package:ecommerce_admin/product/bloc/product_bloc.dart';
 import 'package:ecommerce_admin/review/bloc/review_bloc.dart';
-import 'package:ecommerce_admin/settings/bloc/shipping_bloc.dart';
 import 'package:ecommerce_admin/theme/app_theme.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/app_image.dart';
+import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gap/gap.dart';
 import 'core/data/functions.dart';
 import 'core/presentation/widgets/app_drawer.dart';
 import 'product/model/product.dart';
-import 'product/presentation/widgets/product_table.dart';
-import 'settings/presentation/pages/payments_widget.dart';
+import 'shipping/bloc/shipping_bloc.dart';
 import 'tags/bloc/tag_bloc.dart';
-import 'tags/presentation/widgets/tags_widget.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ReviewBloc()),
         BlocProvider(create: (context) => ShippingBloc()),
         BlocProvider(create: (context) => CouponBloc()),
+        BlocProvider(create: (context) => PaymentBloc()),
+        BlocProvider(create: (context) => OrderBloc())
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
@@ -106,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final darkTextTheme = AppTheme.darkTheme().textTheme;
     final size = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
         drawer: size.width < TABLET ? const AppDrawer() : null,
         appBar: AppBar(
@@ -127,17 +132,74 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
                   })
-                : Image.asset(
-                    AppImage.logo,
-                    width: 35,
-                    height: 35,
-                  ),
+                : 0.vSpace(),
           ),
           centerTitle: false,
-          title: Text(
-            "Shopify Ecommerce",
-            style: darkTextTheme.displaySmall,
+          title: Row(
+            children: [
+              Text(
+                "Shopify Ecommerce",
+                style: darkTextTheme.displaySmall,
+              ),
+              const Gap(20),
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 20,
+                child: Image.asset(AppImage.emptyProfile),
+              ),
+            ],
           ),
+          actions: [
+            //Notifications
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: Stack(
+                children: [
+                  //Noti Icon
+                  const Align(
+                    alignment: Alignment.center,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 20,
+                      child: Icon(
+                        FontAwesomeIcons.bell,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  //Noti Count
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      backgroundColor: linkBTNColor,
+                      radius: 10,
+                      child: Text(
+                        "10",
+                        style: textTheme.bodySmall?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            20.hSpace(),
+            //Logout Button
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+              ),
+              onPressed: () {},
+              child: Text(
+                "Log Out",
+                style: textTheme.bodyMedium,
+              ),
+            ),
+            20.hSpace(),
+          ],
         ),
         body: Center(
           child: loading

@@ -1,4 +1,4 @@
-import 'package:ecommerce_admin/settings/model/shipping_method.dart';
+import 'package:ecommerce_admin/shipping/model/shipping_method.dart';
 
 class ShippingZone {
   final int id;

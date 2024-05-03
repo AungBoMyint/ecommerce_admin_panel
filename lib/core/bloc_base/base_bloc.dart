@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/main.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
@@ -15,7 +16,7 @@ part 'base_state.dart';
 abstract class BaseBloc<T, E extends BaseEvent, S extends BaseState>
     extends Bloc<E, S> {
   BaseBloc(super.s) {
-    on((event, emit) async {
+    on<E>((event, emit) async {
       if (event is FetchEvent) {
         await _onFetchEvent(event, emit);
         return;
@@ -57,7 +58,7 @@ abstract class BaseBloc<T, E extends BaseEvent, S extends BaseState>
         log("-🍾---Event is not found, something is wrong in BaseBloc code.\n"
             "(or) may be event from children.");
       }
-    });
+    }, transformer: droppable());
   }
 
   FutureOr<void> _onFetchEvent(
@@ -222,7 +223,14 @@ abstract class BaseBloc<T, E extends BaseEvent, S extends BaseState>
 
   int getId(e);
 
-  FutureOr<void> _onFilterEvent(FilterEvent event, Emitter<BaseState> emit) {}
+  FutureOr<void> _onFilterEvent(
+      FilterEvent event, Emitter<BaseState> emit) async {
+    log("---🎯 Filtering..........");
+    if (state.actionStatus == ActionStatus.fetching) return;
+    emit(state.copyWith(actionStatus: ActionStatus.searching));
+    await Future.delayed(const Duration(seconds: 3));
+    emit(state.copyWith(actionStatus: ActionStatus.initial));
+  }
 
   Future<void> addItemEvent() async {}
 

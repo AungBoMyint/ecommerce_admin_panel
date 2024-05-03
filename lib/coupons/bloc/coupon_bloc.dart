@@ -4,7 +4,7 @@ import 'dart:async';
 
 // ignore: depend_on_referenced_packages
 import 'package:bloc/src/bloc.dart';
-import 'package:ecommerce_admin/category/formz/fromz_class.dart';
+import 'package:ecommerce_admin/core/formz/fromz_class.dart';
 import 'package:ecommerce_admin/core/bloc_base/base_bloc.dart';
 import 'package:ecommerce_admin/core/data/actions_status.dart';
 import 'package:ecommerce_admin/coupons/model/coupon_model.dart';

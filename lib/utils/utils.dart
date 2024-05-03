@@ -29,12 +29,30 @@ enum PageType {
   editOrders,
 }
 
+const double XDESKTOP = 1262.0;
+const double MDESKTOP = 1280;
+// ignore: constant_identifier_names
+const double XTABLET = 1145.0;
+const double MTABLET = 950.0;
+// ignore: constant_identifier_names
+const double xTABLET = 855.0;
+const double STABLET = 895;
+// ignore: constant_identifier_names
+const double mTABLET = 722.0;
+const double sTABLET = 560;
+// ignore: constant_identifier_names
+const double XMOBILE = 467.0;
+
+const double MMOBILE = 380.0;
+
+//TODO:TO REMOVE
 // ignore: constant_identifier_names
 const double DESKTOP = 1262.0;
 // ignore: constant_identifier_names
 const double TABLET = 1145.0;
 // ignore: constant_identifier_names
-const double STABLET = 855.0;
+//const double STABLET = 855.0;
+const double MSTABLET = 890;
 // ignore: constant_identifier_names
 const double XSTABLET = 722.0;
 const double SMALL_TABLET = 560;

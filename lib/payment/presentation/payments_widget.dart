@@ -4,7 +4,10 @@ import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/app_image.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+
+import '../bloc/payment_bloc.dart';
 
 class PaymentsWidget extends StatelessWidget {
   const PaymentsWidget({super.key});
@@ -50,7 +53,7 @@ class PaymentsWidget extends StatelessWidget {
               rows: [
                 DataRow2(specificRowHeight: 100, cells: [
                   //method
-                  DataCell(Row(
+                  DataCell(Wrap(
                     children: [
                       Text(
                         "2C2P Payment Gateway",
@@ -78,10 +81,16 @@ class PaymentsWidget extends StatelessWidget {
                   )),
                   //enabled
                   DataCell(
-                    Switch(
-                      value: true,
-                      onChanged: (v) {},
-                      activeColor: linkBTNColor,
+                    BlocBuilder<PaymentBloc, PaymentState>(
+                      builder: (context, state) {
+                        return Switch(
+                          value: state.enable2C2P,
+                          onChanged: (v) => context.read<PaymentBloc>().add(
+                                Toggle2C2PPayment(value: v),
+                              ),
+                          activeColor: linkBTNColor,
+                        );
+                      },
                     ),
                   ),
                   //descriptoin
@@ -99,10 +108,16 @@ class PaymentsWidget extends StatelessWidget {
                   ),
                   //enabled
                   DataCell(
-                    Switch(
-                      value: false,
-                      onChanged: (v) {},
-                      activeColor: linkBTNColor,
+                    BlocBuilder<PaymentBloc, PaymentState>(
+                      builder: (context, state) {
+                        return Switch(
+                          value: state.enableCashOnDelivery,
+                          onChanged: (v) => context.read<PaymentBloc>().add(
+                                ToggleCashOnDelivery(value: v),
+                              ),
+                          activeColor: linkBTNColor,
+                        );
+                      },
                     ),
                   ),
                   //descriptoin

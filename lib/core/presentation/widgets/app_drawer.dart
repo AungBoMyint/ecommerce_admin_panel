@@ -98,7 +98,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     );
                   }),
-                  10.vSpace(),
+                  15.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
                       onTap: () {
@@ -117,7 +117,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     );
                   }),
-                  10.vSpace(),
+                  15.vSpace(),
                   InkWell(
                     onTap: () {
                       Scaffold.of(context).closeDrawer();
@@ -141,7 +141,7 @@ class AppDrawer extends StatelessWidget {
                       );
                     }),
                   ),
-                  10.vSpace(),
+                  15.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
                       onTap: () {
@@ -161,7 +161,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     );
                   }),
-                  10.vSpace(),
+                  15.vSpace(),
                   InkWell(
                     onTap: () {
                       Scaffold.of(context).closeDrawer();
@@ -185,7 +185,7 @@ class AppDrawer extends StatelessWidget {
                       );
                     }),
                   ),
-                  10.vSpace(),
+                  15.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(
                     builder: (context, state) {
                       return InkWell(
@@ -213,7 +213,7 @@ class AppDrawer extends StatelessWidget {
             /* ), */
             /* ), */
             /* Gap(20),
-            10.vSpace(), */
+            15.vSpace(), */
             CustomPaint(
               foregroundPainter:
                   size.width > TABLET ? ActiveDrawerItemPainter() : null,
@@ -252,28 +252,6 @@ class AppDrawer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
-                    return InkWell(
-                      onTap: () {
-                        Scaffold.of(context).closeDrawer();
-                        context
-                            .read<CoreBloc>()
-                            .add(ChangePageEvent(page: PageType.viewMyStore));
-                      },
-                      child: Text(
-                        "View my store",
-                        style: textTheme.displaySmall?.copyWith(
-                          color: (state.page == PageType.viewMyStore)
-                              ? Colors.white
-                              : Colors.grey.shade400,
-                          fontWeight: (state.page == PageType.viewMyStore)
-                              ? FontWeight.bold
-                              : null,
-                        ),
-                      ),
-                    );
-                  }),
-                  10.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(
                     builder: (context, state) {
                       return InkWell(
@@ -295,7 +273,7 @@ class AppDrawer extends StatelessWidget {
                       );
                     },
                   ),
-                  /* 10.vSpace(),
+                  /* 15.vSpace(),
                   //Tax
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
@@ -319,7 +297,7 @@ class AppDrawer extends StatelessWidget {
                     );
                   }),
  */
-                  10.vSpace(),
+                  15.vSpace(),
                   //Shipping
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
@@ -345,7 +323,7 @@ class AppDrawer extends StatelessWidget {
                     );
                   }),
 
-                  10.vSpace(),
+                  15.vSpace(),
                   BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
                     return InkWell(
                       onTap: () {
@@ -367,7 +345,29 @@ class AppDrawer extends StatelessWidget {
                       ),
                     );
                   }),
-                  10.vSpace(),
+                  15.vSpace(),
+                  //View My Store
+                  BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
+                    return InkWell(
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.viewMyStore));
+                      },
+                      child: Text(
+                        "View my store",
+                        style: textTheme.displaySmall?.copyWith(
+                          color: (state.page == PageType.viewMyStore)
+                              ? Colors.white
+                              : Colors.grey.shade400,
+                          fontWeight: (state.page == PageType.viewMyStore)
+                              ? FontWeight.bold
+                              : null,
+                        ),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),

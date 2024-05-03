@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: size.width < TABLET ? const AppDrawer() : null,
         appBar: AppBar(
           backgroundColor: majorBGColor,
-          leadingWidth: 35,
+          leadingWidth: size.width < TABLET ? 35 : 200,
           leading: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: size.width < TABLET
@@ -132,22 +132,28 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
                   })
-                : 0.vSpace(),
+                : Row(
+                    children: [
+                      //Admin Name
+                      Text(
+                        "David Willian",
+                        style: darkTextTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Gap(20),
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 20,
+                        child: Image.asset(AppImage.emptyProfile),
+                      ),
+                    ],
+                  ),
           ),
-          centerTitle: false,
-          title: Row(
-            children: [
-              Text(
-                "Shopify Ecommerce",
-                style: darkTextTheme.displaySmall,
-              ),
-              const Gap(20),
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 20,
-                child: Image.asset(AppImage.emptyProfile),
-              ),
-            ],
+          centerTitle: true,
+          title: Text(
+            "Shoppify Ecommerce Store",
+            style: darkTextTheme.displayLarge,
           ),
           actions: [
             //Notifications

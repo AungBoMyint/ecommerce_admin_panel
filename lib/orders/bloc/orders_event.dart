@@ -2,6 +2,16 @@ part of 'orders_bloc.dart';
 
 class OrderEvent extends BaseEvent {}
 
+class ChangeOrderPaymentFilter extends OrderEvent {
+  final String paymentMethods;
+  ChangeOrderPaymentFilter({required this.paymentMethods});
+}
+
+class ChangeOrderStatusFilter extends OrderEvent {
+  final String orderStatus;
+  ChangeOrderStatusFilter({required this.orderStatus});
+}
+
 class ChangeShippingAddress extends OrderEvent {
   final String value;
   ChangeShippingAddress({required this.value});

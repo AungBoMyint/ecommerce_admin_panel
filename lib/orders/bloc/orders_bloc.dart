@@ -22,6 +22,8 @@ class OrderBloc extends BaseBloc<AppOrder, BaseEvent, OrderState> {
     on<ChangePaymentMethod>(_onChangePaymentMethod);
     on<ChangeTotalAmount>(_onChangeTotlaAmount);
     on<ChangeShippingAddress>(_onChangeShippingAddress);
+    on<ChangeOrderStatusFilter>(_onChangeOrderStatusFilter);
+    on<ChangeOrderPaymentFilter>(_onChangeOrderPaymentFilter);
   }
 
   FutureOr<void> _onChangeId(ChangeId event, Emitter<OrderState> emit) {
@@ -173,5 +175,17 @@ class OrderBloc extends BaseBloc<AppOrder, BaseEvent, OrderState> {
   @override
   Future<String> requestData() async {
     return await rootBundle.loadString("assets/mock/orders.json");
+  }
+
+  FutureOr<void> _onChangeOrderStatusFilter(
+      ChangeOrderStatusFilter event, Emitter<OrderState> emit) {
+    emit(
+      state.copyWith(filterOrderStatus: event.orderStatus),
+    );
+  }
+
+  FutureOr<void> _onChangeOrderPaymentFilter(
+      ChangeOrderPaymentFilter event, Emitter<OrderState> emit) {
+    emit(state.copyWith(filterOrderPayment: event.paymentMethods));
   }
 }

@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:ecommerce_admin/category/bloc/category_bloc.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/label_dropdown.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/responsive_rowcolumn_textfield.dart';
 import 'package:ecommerce_admin/utils/app_image.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
 class CategoryForm extends StatelessWidget {
   const CategoryForm({super.key});
@@ -21,63 +21,17 @@ class CategoryForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //Name
             BlocBuilder<CategoryBloc, CategoryState>(
               builder: (context, state) {
-                return SizedBox(
-                  height:
-                      (state.isFirstTimePressed && !(state.name.error == null))
-                          ? 100
-                          : 70,
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return ResponsiveRowColumn(
-                      layout: constraints.maxWidth > 420
-                          ? ResponsiveRowColumnType.ROW
-                          : ResponsiveRowColumnType.COLUMN,
-                      columnCrossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ResponsiveRowColumnItem(
-                          child: Text(
-                            "Name",
-                            style: textTheme.bodyLarge,
-                          ),
-                        ),
-                        const ResponsiveRowColumnItem(
-                            child: SizedBox(
-                          width: 40,
-                          height: 5,
-                        )),
-                        ResponsiveRowColumnItem(
-                          child: Expanded(
-                            child: TextFormField(
-                              cursorHeight: 15,
-                              initialValue: state.name.value,
-                              onChanged: (v) => context
-                                  .read<CategoryBloc>()
-                                  .add(ChangeNameEvent(value: v)),
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.only(
-                                  left: 10,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        ResponsiveRowColumnItem(
-                          child: (state.isFirstTimePressed &&
-                                  !(state.name.error == null))
-                              ? const ErrorText(error: "* Name is required")
-                              : 0.vSpace(),
-                        ),
-                        constraints.maxWidth > 420
-                            ? ResponsiveRowColumnItem(
-                                child: Expanded(
-                                child: Container(),
-                              ))
-                            : ResponsiveRowColumnItem(child: 0.vSpace()),
-                      ],
-                    );
-                  }),
+                return ResponsiveRowColumnTextField(
+                  onChanged: (v) => context.read<CategoryBloc>().add(
+                        ChangeNameEvent(value: v),
+                      ),
+                  hasFormError:
+                      (state.isFirstTimePressed && !(state.name.error == null)),
+                  label: "Name",
+                  errorText: "* Name is required",
                 );
               },
             ),

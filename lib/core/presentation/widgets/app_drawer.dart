@@ -27,33 +27,84 @@ class AppDrawer extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            CustomPaint(
-              foregroundPainter:
-                  size.width > TABLET ? ActiveDrawerItemPainter() : null,
-              child: Container(
-                color: linkBTNColor,
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      AppImage.product,
-                      width: 30,
-                      height: 30,
-                    ),
-                    10.hSpace(),
-                    Text(
-                      "Products",
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: Colors.white,
+            BlocBuilder<CoreBloc, CoreState>(
+              builder: (context, state) {
+                return CustomPaint(
+                  foregroundPainter: ((size.width > TABLET) &&
+                          state.page == PageType.dashboard)
+                      ? ActiveDrawerItemPainter()
+                      : null,
+                  child: InkWell(
+                    onTap: () => context
+                        .read<CoreBloc>()
+                        .add(ChangePageEvent(page: PageType.dashboard)),
+                    child: Container(
+                      color: state.page == PageType.dashboard
+                          ? linkBTNColor
+                          : minorBGColor,
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.gauge,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          10.hSpace(),
+                          Text(
+                            "Dashboard",
+                            style: textTheme.bodyLarge?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
+            ),
+
+            BlocBuilder<CoreBloc, CoreState>(
+              builder: (context, state) {
+                return CustomPaint(
+                  foregroundPainter: state.page == PageType.dashboard
+                      ? null
+                      : size.width > TABLET
+                          ? ActiveDrawerItemPainter()
+                          : null,
+                  child: Container(
+                    color: state.page == PageType.dashboard
+                        ? minorBGColor
+                        : linkBTNColor,
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          AppImage.product,
+                          width: 30,
+                          height: 30,
+                        ),
+                        10.hSpace(),
+                        Text(
+                          "Products",
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
             //Product's Functions
             Container(
@@ -207,6 +258,31 @@ class AppDrawer extends StatelessWidget {
                       );
                     },
                   ),
+                  15.vSpace(),
+                  //Users
+                  BlocBuilder<CoreBloc, CoreState>(builder: (context, state) {
+                    return InkWell(
+                      onTap: () {
+                        Scaffold.of(context).closeDrawer();
+                        context
+                            .read<CoreBloc>()
+                            .add(ChangePageEvent(page: PageType.users));
+                      },
+                      child: Text(
+                        "Users",
+                        style: textTheme.displaySmall?.copyWith(
+                          color: (state.page == PageType.users ||
+                                  state.page == PageType.editUsers)
+                              ? Colors.white
+                              : Colors.grey.shade400,
+                          fontWeight: ((state.page == PageType.users ||
+                                  state.page == PageType.editUsers))
+                              ? FontWeight.bold
+                              : null,
+                        ),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -214,33 +290,42 @@ class AppDrawer extends StatelessWidget {
             /* ), */
             /* Gap(20),
             15.vSpace(), */
-            CustomPaint(
-              foregroundPainter:
-                  size.width > TABLET ? ActiveDrawerItemPainter() : null,
-              child: Container(
-                color: linkBTNColor,
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      FontAwesomeIcons.gear,
-                      size: 25,
-                      color: Colors.white,
+            BlocBuilder<CoreBloc, CoreState>(
+              builder: (context, state) {
+                return CustomPaint(
+                  foregroundPainter: state.page == PageType.dashboard
+                      ? null
+                      : size.width > TABLET
+                          ? ActiveDrawerItemPainter()
+                          : null,
+                  child: Container(
+                    color: state.page == PageType.dashboard
+                        ? minorBGColor
+                        : linkBTNColor,
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
                     ),
-                    10.hSpace(),
-                    Text(
-                      "Settings",
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: Colors.white,
-                      ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.gear,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                        10.hSpace(),
+                        Text(
+                          "Settings",
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
             Container(
               color: minorBGColor,

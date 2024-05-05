@@ -45,6 +45,8 @@ class SetEditItemEvent<T> extends BaseEvent {
   SetEditItemEvent({required this.item});
 }
 
+class PickImageEvent extends BaseEvent {}
+
 abstract class BaseEvent {
   BaseEvent();
 }

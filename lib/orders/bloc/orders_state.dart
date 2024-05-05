@@ -1,5 +1,27 @@
 part of 'orders_bloc.dart';
 
+List<String> orderStatusList = [
+  "On hold",
+  "Failed",
+  "Completed",
+  "Draft",
+  "Cancelled",
+  "Pending Payment",
+  "Processing",
+  "Refunded",
+];
+
+List<String> orderPaymentList = [
+  "Internet Banking",
+  "Installment payments",
+  "2Checkout",
+  "PayPal",
+  "Alipay",
+  "SiamPay",
+  "Codapay",
+  "PromptPay",
+];
+
 class OrderState extends BaseState<AppOrder, OrderState> {
   final RequiredInt orderId;
   final RequiredDropdown customerName;
@@ -8,7 +30,12 @@ class OrderState extends BaseState<AppOrder, OrderState> {
   final RequiredDropdown paymentMethod;
   final RequiredDouble totalAmount;
   final RequiredText shippingAddress;
+  final String? filterOrderStatus;
+  final String? filterOrderPayment;
+
   const OrderState({
+    this.filterOrderPayment,
+    this.filterOrderStatus,
     this.orderId = const RequiredInt.pure(),
     this.customerName = const RequiredDropdown.pure(),
     this.orderStatus,
@@ -36,6 +63,8 @@ class OrderState extends BaseState<AppOrder, OrderState> {
         paymentMethod,
         totalAmount,
         shippingAddress,
+        filterOrderStatus ?? "",
+        filterOrderPayment ?? "",
         ...super.props,
       ];
 
@@ -57,8 +86,12 @@ class OrderState extends BaseState<AppOrder, OrderState> {
     RequiredDropdown? paymentMethod,
     RequiredDouble? totalAmount,
     RequiredText? shippingAddress,
+    String? filterOrderStatus,
+    String? filterOrderPayment,
   }) {
     return OrderState(
+      filterOrderPayment: filterOrderPayment ?? this.filterOrderPayment,
+      filterOrderStatus: filterOrderStatus ?? this.filterOrderStatus,
       orderId: orderId ?? this.orderId,
       customerName: customerName ?? this.customerName,
       orderStatus: orderStatus ?? this.orderStatus,

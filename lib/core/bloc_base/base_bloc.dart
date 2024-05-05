@@ -6,6 +6,8 @@ import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/main.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../data/actions_status.dart';
@@ -54,6 +56,8 @@ abstract class BaseBloc<T, E extends BaseEvent, S extends BaseState>
         await _onSelectAllItemsEvent(event, emit);
       } else if (event is SetEditItemEvent) {
         await _onSetEditItemEvent(event, emit);
+      } else if (event is PickImageEvent) {
+        await _onPickImageEvent(event, emit);
       } else {
         log("-🍾---Event is not found, something is wrong in BaseBloc code.\n"
             "(or) may be event from children.");
@@ -240,4 +244,18 @@ abstract class BaseBloc<T, E extends BaseEvent, S extends BaseState>
   }
 
   void initializeEditItem(item) {}
+
+  FutureOr<void> _onPickImageEvent(E event, Emitter<S> emit) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (!(result == null)) {
+      log("-Return Image: ${result.files.single.bytes}");
+      pickedImage(result: result.files.single.bytes, emit: emit, state: state);
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  void pickedImage(
+      {Uint8List? result, required Emitter<S> emit, required S state}) {}
 }

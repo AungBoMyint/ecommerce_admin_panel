@@ -14,6 +14,7 @@ import 'package:ecommerce_admin/product/bloc/product_bloc.dart';
 import 'package:ecommerce_admin/review/bloc/review_bloc.dart';
 import 'package:ecommerce_admin/theme/app_theme.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
+import 'package:ecommerce_admin/user/bloc/user_bloc.dart';
 import 'package:ecommerce_admin/utils/app_image.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ShippingBloc()),
         BlocProvider(create: (context) => CouponBloc()),
         BlocProvider(create: (context) => PaymentBloc()),
-        BlocProvider(create: (context) => OrderBloc())
+        BlocProvider(create: (context) => OrderBloc()),
+        BlocProvider(create: (context) => UserBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
@@ -112,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+        backgroundColor: Colors.grey.shade100,
         drawer: size.width < TABLET ? const AppDrawer() : null,
         appBar: AppBar(
           backgroundColor: majorBGColor,

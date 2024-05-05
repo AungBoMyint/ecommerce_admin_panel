@@ -86,6 +86,9 @@ class _SettingShippingWidgetState extends State<SettingShippingWidget> {
                                 builder: (context, state) {
                                   return LabelDropDownSearchable(
                                     getName: (v) => v,
+                                    condition: state.isFirstTimePressed &&
+                                        !(state.zoneName.error == null),
+                                    errorText: "* Please select zone name.",
                                     items: state.zoneNames,
                                     textEditingController:
                                         TextEditingController(),
@@ -120,12 +123,17 @@ class _SettingShippingWidgetState extends State<SettingShippingWidget> {
                             ),
                           ),
                           ResponsiveRowColumnItem(
-                            child: SizedBox(
-                              height: 60,
-                              width: 250,
-                              child: BlocBuilder<ShippingBloc, ShippingState>(
-                                builder: (context, state) {
-                                  return LabelDropDownSearchable(
+                            child: BlocBuilder<ShippingBloc, ShippingState>(
+                              builder: (context, state) {
+                                final hasError = state.isFirstTimePressed &&
+                                    !(state.zoneRegionList.error == null);
+                                return SizedBox(
+                                  height: hasError ? 100 : 60,
+                                  width: 250,
+                                  child: LabelDropDownSearchable(
+                                    condition: hasError,
+                                    errorText:
+                                        "* Please select at lease one zone region.",
                                     getName: (v) => v,
                                     items: state.zoneRegions,
                                     selectedItems: state.zoneRegionList.value,
@@ -136,9 +144,9 @@ class _SettingShippingWidgetState extends State<SettingShippingWidget> {
                                         .read<ShippingBloc>()
                                         .add(SelectZoneRegionEvent(
                                             zoneRegion: v ?? "")),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],

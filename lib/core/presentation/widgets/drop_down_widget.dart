@@ -11,6 +11,7 @@ class DropDownWidget<T> extends StatelessWidget {
     this.hintStyle,
     this.value,
     this.onChanged,
+    this.textStyle,
   });
 
   final String hintText;
@@ -20,6 +21,7 @@ class DropDownWidget<T> extends StatelessWidget {
   final TextStyle? hintStyle;
   final T? value;
   final Function(T?)? onChanged;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +41,10 @@ class DropDownWidget<T> extends StatelessWidget {
                     item.toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
+                    style: textStyle ??
+                        const TextStyle(
+                          fontSize: 14,
+                        ),
                   ),
                 ))
             .toList(),

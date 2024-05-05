@@ -53,6 +53,9 @@ class EditShippingWidget extends StatelessWidget {
                         builder: (context, state) {
                           return LabelDropDownSearchable(
                             getName: (v) => v,
+                            condition: state.isFirstTimePressed &&
+                                !(state.zoneName.error == null),
+                            errorText: "* Please select zone name.",
                             items: state.zoneNames,
                             textEditingController: TextEditingController(),
                             hintText: "select zone",
@@ -91,6 +94,10 @@ class EditShippingWidget extends StatelessWidget {
                       child: BlocBuilder<ShippingBloc, ShippingState>(
                         builder: (context, state) {
                           return LabelDropDownSearchable(
+                            condition: state.isFirstTimePressed &&
+                                !(state.zoneRegionList.error == null),
+                            errorText:
+                                "* Please select at lease one zone region.",
                             getName: (v) => v,
                             items: state.zoneRegions,
                             selectedItems: state.zoneRegionList.value,

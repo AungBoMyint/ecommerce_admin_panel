@@ -8,6 +8,7 @@ const searchTextBorder = OutlineInputBorder(
 ));
 
 enum PageType {
+  dashboard,
   allProducts,
   editProduct,
   addProduct,
@@ -27,6 +28,8 @@ enum PageType {
   editCoupons,
   orders,
   editOrders,
+  users,
+  editUsers,
 }
 
 const double XDESKTOP = 1262.0;
@@ -102,6 +105,22 @@ void showCannotEditMultipleItem() {
             .displayMedium
             ?.copyWith(
               color: Colors.red,
+            ),
+      ),
+    ));
+}
+
+void showSnackBar({required String value, Color? textColor}) {
+  ScaffoldMessenger.of(navigatorKey.currentContext!)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(SnackBar(
+      content: Text(
+        value,
+        style: Theme.of(navigatorKey.currentContext!)
+            .textTheme
+            .displayMedium
+            ?.copyWith(
+              color: textColor ?? Colors.red,
             ),
       ),
     ));

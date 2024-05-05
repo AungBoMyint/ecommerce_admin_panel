@@ -137,7 +137,7 @@ class _OrderTableState
               e: "#000${item.id}",
               onEdit: () => context.read<CoreBloc>().add(
                     ChangePageEvent(
-                      page: PageType.editReview,
+                      page: PageType.editOrders,
                     ),
                   ),
             ),
@@ -262,6 +262,45 @@ class _OrderTableState
                 text: "Apply",
                 fillColor: linkBTNColor,
               ),
+              40.hSpace(),
+              BlocBuilder<OrderBloc, OrderState>(
+                builder: (context, state) {
+                  return DropDownWidget<String>(
+                    width: 200,
+                    onChanged: (v) => context
+                        .read<OrderBloc>()
+                        .add(ChangeOrderStatusFilter(orderStatus: v ?? "")),
+                    value: state.filterOrderStatus,
+                    hintText: "Filter by order status",
+                    items: orderStatusList,
+                  );
+                },
+              ),
+              10.hSpace(),
+              BlocBuilder<OrderBloc, OrderState>(
+                builder: (context, state) {
+                  return DropDownWidget<String>(
+                    width: 200,
+                    onChanged: (v) => context
+                        .read<OrderBloc>()
+                        .add(ChangeOrderPaymentFilter(paymentMethods: v ?? "")),
+                    value: state.filterOrderPayment,
+                    hintText: "Filter by payment method",
+                    items: orderPaymentList,
+                  );
+                },
+              ),
+              10.hSpace(),
+              LinkTextButton(
+                width: 100,
+                height: 35,
+                onPressed: () {
+                  context.read<OrderBloc>().add(FilterEvent());
+                },
+                text: "Filter",
+                fillColor: linkBTNColor,
+              ),
+              20.hSpace(),
             ],
           ),
         ),

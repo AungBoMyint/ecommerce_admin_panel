@@ -2,7 +2,7 @@ part of 'core_bloc.dart';
 
 class CoreState extends Equatable {
   final PageType page;
-  const CoreState({this.page = PageType.allProducts});
+  const CoreState({this.page = PageType.dashboard});
 
   @override
   List<Object?> get props => [page];

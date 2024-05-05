@@ -1,3 +1,5 @@
+import 'dart:math';
+
 final List<Category> categories = [
   Category(name: "Shirt", hasChild: true, children: [
     Category(
@@ -75,3 +77,34 @@ List<String> products = [
   "Understanding what you are in real life!",
   "Know yourself about your job.",
 ];
+
+List favoriteFlavors = [
+  {
+    "avatar": 'assets/bubbletea.png',
+    "label": 'Classic Milk Tea',
+    "amount": "4,976 Cups",
+    "time": "⭐⭐⭐⭐⭐",
+    "status": "Very Excellent",
+  },
+  {
+    "avatar": 'assets/bbt.png',
+    "label": 'Tiger Milk Tea',
+    "amount": "3,553 Cups",
+    "time": "⭐⭐⭐⭐",
+    "status": "Excellent",
+  },
+  {
+    "avatar": 'assets/bubbletea.png',
+    "label": 'Thai Milk Tea',
+    "amount": "2,544 Cups",
+    "time": "⭐⭐⭐",
+    "status": "Good",
+  },
+];
+
+List<Map<String, dynamic>> dailyData = List.generate(31, (index) {
+  return {"value": Random().nextInt(100)};
+});
+List<Map<String, dynamic>> monthlyData = List.generate(12, (index) {
+  return {"value": Random().nextInt(100)};
+});

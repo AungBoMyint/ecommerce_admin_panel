@@ -8,20 +8,20 @@ part 'coupon_model.g.dart';
 class CouponModel with _$CouponModel {
   factory CouponModel({
     required int id,
-    required String couponCode,
+    required String? couponCode,
     required String description,
     required int orders,
-    required String amountDiscounted,
+    required int amountDiscounted,
     required DateTime created,
     required DateTime expired,
     required CouponType type,
     required bool allowFreeShipping,
     required double minimunSpend,
     required double maximunSpend,
-    required List<String> includeProducts,
-    required List<String> excludeProducts,
-    required List<String> includeCategories,
-    required List<String> excludeCategories,
+    required List<String>? includeProducts,
+    required List<String>? excludeProducts,
+    required List<String>? includeCategories,
+    required List<String>? excludeCategories,
   }) = _CouponModel;
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);

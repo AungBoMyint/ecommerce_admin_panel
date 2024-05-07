@@ -154,9 +154,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
           ),
           centerTitle: true,
-          title: Text(
-            "Shoppify Ecommerce Store",
-            style: darkTextTheme.displayLarge,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                AppImage.logo,
+                width: 35,
+                height: 35,
+              ),
+              Gap(20),
+              Text(
+                "Shoppify Ecommerce Store",
+                style: darkTextTheme.displayLarge,
+              ),
+            ],
           ),
           actions: [
             //Notifications

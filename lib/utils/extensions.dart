@@ -1,4 +1,7 @@
+import 'package:ecommerce_admin/view_mystore/model/draggable/button_draggable.dart';
+import 'package:ecommerce_admin/view_mystore/presentation/widgets/appbar/my_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 extension HorizontalSpace on int {
   Widget hSpace() => SizedBox(
@@ -54,6 +57,26 @@ extension ElevationExtension on Widget {
           ],
           color: Colors.white,
         ),
+        child: this,
+      );
+}
+
+extension GFExtension on MyGFButton {
+  Draggable<MyGFButton> toDraggable() => Draggable<MyGFButton>(
+        key: Key(Uuid().v1()),
+        feedback: this,
+        data: this,
+        childWhenDragging: const SizedBox(),
+        child: this,
+      );
+}
+
+extension AppBarExtension on MyAppBar {
+  Draggable<MyAppBar> toDraggable() => Draggable<MyAppBar>(
+        key: Key(Uuid().v1()),
+        feedback: this,
+        data: this,
+        childWhenDragging: const SizedBox(),
         child: this,
       );
 }

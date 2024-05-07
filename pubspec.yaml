@@ -66,6 +66,9 @@ dependencies:
   flutter_rounded_date_picker: ^3.0.4
   intl: ^0.18.1
   fl_chart: ^0.35.0
+  getwidget: ^4.0.0
+  uuid: ^4.2.2
+  dotted_border: ^2.1.0
 #dependency_overrides:
 #platform: ^3.1.0
 dev_dependencies:

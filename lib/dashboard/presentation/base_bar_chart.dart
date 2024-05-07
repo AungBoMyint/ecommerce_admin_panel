@@ -22,7 +22,7 @@ class BaseBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    const Color barBackgroundColor = Colors.white;
+    const Color barBackgroundColor = Colors.grey;
     return Column(
       children: [
         Row(

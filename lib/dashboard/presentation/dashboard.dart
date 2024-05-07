@@ -19,7 +19,7 @@ class DashboardPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
     final isMTABLET = size.width <= MTABLET;
-
+    final isOverflow = size.width > XTABLET && size.width <= EDESKTOP;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 20, top: 20),
@@ -47,7 +47,11 @@ class DashboardPage extends StatelessWidget {
                 //left
                 ResponsiveRowColumnItem(
                   child: SizedBox(
-                    width: isMTABLET ? size.width * 0.95 : size.width * 0.68,
+                    width: (isOverflow)
+                        ? size.width * 0.65
+                        : isMTABLET
+                            ? size.width * 0.95
+                            : size.width * 0.68,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

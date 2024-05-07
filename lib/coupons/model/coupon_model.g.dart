@@ -9,27 +9,27 @@ part of 'coupon_model.dart';
 _$CouponModelImpl _$$CouponModelImplFromJson(Map<String, dynamic> json) =>
     _$CouponModelImpl(
       id: (json['id'] as num).toInt(),
-      couponCode: json['couponCode'] as String,
+      couponCode: json['couponCode'] as String?,
       description: json['description'] as String,
       orders: (json['orders'] as num).toInt(),
-      amountDiscounted: json['amountDiscounted'] as String,
+      amountDiscounted: (json['amountDiscounted'] as num).toInt(),
       created: DateTime.parse(json['created'] as String),
       expired: DateTime.parse(json['expired'] as String),
       type: $enumDecode(_$CouponTypeEnumMap, json['type']),
       allowFreeShipping: json['allowFreeShipping'] as bool,
       minimunSpend: (json['minimunSpend'] as num).toDouble(),
       maximunSpend: (json['maximunSpend'] as num).toDouble(),
-      includeProducts: (json['includeProducts'] as List<dynamic>)
-          .map((e) => e as String)
+      includeProducts: (json['includeProducts'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
-      excludeProducts: (json['excludeProducts'] as List<dynamic>)
-          .map((e) => e as String)
+      excludeProducts: (json['excludeProducts'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
-      includeCategories: (json['includeCategories'] as List<dynamic>)
-          .map((e) => e as String)
+      includeCategories: (json['includeCategories'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
-      excludeCategories: (json['excludeCategories'] as List<dynamic>)
-          .map((e) => e as String)
+      excludeCategories: (json['excludeCategories'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
     );
 

@@ -1,5 +1,6 @@
 import 'package:ecommerce_admin/category/presentation/widgets/categories.dart';
 import 'package:ecommerce_admin/category/presentation/widgets/edit_category.dart';
+import 'package:ecommerce_admin/coupons/presentation/pages/coupon_form.dart';
 import 'package:ecommerce_admin/dashboard/presentation/dashboard.dart';
 import 'package:ecommerce_admin/orders/presentation/order_form.dart';
 import 'package:ecommerce_admin/orders/presentation/order_table.dart';
@@ -15,7 +16,7 @@ import 'package:flutter/material.dart';
 
 import '../../coupons/presentation/pages/coupons_page.dart';
 import '../../payment/presentation/payments_widget.dart';
-import '../../settings/presentation/pages/view_my_store.dart';
+import '../../view_mystore/presentation/pages/view_my_store.dart';
 import '../../shipping/presentation/edit_shipping_widget.dart';
 import '../../shipping/presentation/shipping_widget.dart';
 import '../../tags/presentation/widgets/edit_tags.dart';
@@ -51,9 +52,9 @@ Widget getPage(PageType pageType) {
     case PageType.viewMyStore:
       return const ViewMyStore();
     case PageType.coupons:
-      return const CouponsPage();
+      return const CouponTable();
     case PageType.editCoupons:
-      return Container();
+      return const CouponForm();
     case PageType.orders:
       return const OrderTable();
     case PageType.editOrders:

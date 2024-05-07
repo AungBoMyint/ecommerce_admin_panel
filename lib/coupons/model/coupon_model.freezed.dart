@@ -21,20 +21,20 @@ CouponModel _$CouponModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CouponModel {
   int get id => throw _privateConstructorUsedError;
-  String get couponCode => throw _privateConstructorUsedError;
+  String? get couponCode => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get orders => throw _privateConstructorUsedError;
-  String get amountDiscounted => throw _privateConstructorUsedError;
+  int get amountDiscounted => throw _privateConstructorUsedError;
   DateTime get created => throw _privateConstructorUsedError;
   DateTime get expired => throw _privateConstructorUsedError;
   CouponType get type => throw _privateConstructorUsedError;
   bool get allowFreeShipping => throw _privateConstructorUsedError;
   double get minimunSpend => throw _privateConstructorUsedError;
   double get maximunSpend => throw _privateConstructorUsedError;
-  List<String> get includeProducts => throw _privateConstructorUsedError;
-  List<String> get excludeProducts => throw _privateConstructorUsedError;
-  List<String> get includeCategories => throw _privateConstructorUsedError;
-  List<String> get excludeCategories => throw _privateConstructorUsedError;
+  List<String>? get includeProducts => throw _privateConstructorUsedError;
+  List<String>? get excludeProducts => throw _privateConstructorUsedError;
+  List<String>? get includeCategories => throw _privateConstructorUsedError;
+  List<String>? get excludeCategories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,20 +50,20 @@ abstract class $CouponModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String couponCode,
+      String? couponCode,
       String description,
       int orders,
-      String amountDiscounted,
+      int amountDiscounted,
       DateTime created,
       DateTime expired,
       CouponType type,
       bool allowFreeShipping,
       double minimunSpend,
       double maximunSpend,
-      List<String> includeProducts,
-      List<String> excludeProducts,
-      List<String> includeCategories,
-      List<String> excludeCategories});
+      List<String>? includeProducts,
+      List<String>? excludeProducts,
+      List<String>? includeCategories,
+      List<String>? excludeCategories});
 }
 
 /// @nodoc
@@ -80,7 +80,7 @@ class _$CouponModelCopyWithImpl<$Res, $Val extends CouponModel>
   @override
   $Res call({
     Object? id = null,
-    Object? couponCode = null,
+    Object? couponCode = freezed,
     Object? description = null,
     Object? orders = null,
     Object? amountDiscounted = null,
@@ -90,20 +90,20 @@ class _$CouponModelCopyWithImpl<$Res, $Val extends CouponModel>
     Object? allowFreeShipping = null,
     Object? minimunSpend = null,
     Object? maximunSpend = null,
-    Object? includeProducts = null,
-    Object? excludeProducts = null,
-    Object? includeCategories = null,
-    Object? excludeCategories = null,
+    Object? includeProducts = freezed,
+    Object? excludeProducts = freezed,
+    Object? includeCategories = freezed,
+    Object? excludeCategories = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      couponCode: null == couponCode
+      couponCode: freezed == couponCode
           ? _value.couponCode
           : couponCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ class _$CouponModelCopyWithImpl<$Res, $Val extends CouponModel>
       amountDiscounted: null == amountDiscounted
           ? _value.amountDiscounted
           : amountDiscounted // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -140,22 +140,22 @@ class _$CouponModelCopyWithImpl<$Res, $Val extends CouponModel>
           ? _value.maximunSpend
           : maximunSpend // ignore: cast_nullable_to_non_nullable
               as double,
-      includeProducts: null == includeProducts
+      includeProducts: freezed == includeProducts
           ? _value.includeProducts
           : includeProducts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      excludeProducts: null == excludeProducts
+              as List<String>?,
+      excludeProducts: freezed == excludeProducts
           ? _value.excludeProducts
           : excludeProducts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      includeCategories: null == includeCategories
+              as List<String>?,
+      includeCategories: freezed == includeCategories
           ? _value.includeCategories
           : includeCategories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      excludeCategories: null == excludeCategories
+              as List<String>?,
+      excludeCategories: freezed == excludeCategories
           ? _value.excludeCategories
           : excludeCategories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -170,20 +170,20 @@ abstract class _$$CouponModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      String couponCode,
+      String? couponCode,
       String description,
       int orders,
-      String amountDiscounted,
+      int amountDiscounted,
       DateTime created,
       DateTime expired,
       CouponType type,
       bool allowFreeShipping,
       double minimunSpend,
       double maximunSpend,
-      List<String> includeProducts,
-      List<String> excludeProducts,
-      List<String> includeCategories,
-      List<String> excludeCategories});
+      List<String>? includeProducts,
+      List<String>? excludeProducts,
+      List<String>? includeCategories,
+      List<String>? excludeCategories});
 }
 
 /// @nodoc
@@ -198,7 +198,7 @@ class __$$CouponModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? couponCode = null,
+    Object? couponCode = freezed,
     Object? description = null,
     Object? orders = null,
     Object? amountDiscounted = null,
@@ -208,20 +208,20 @@ class __$$CouponModelImplCopyWithImpl<$Res>
     Object? allowFreeShipping = null,
     Object? minimunSpend = null,
     Object? maximunSpend = null,
-    Object? includeProducts = null,
-    Object? excludeProducts = null,
-    Object? includeCategories = null,
-    Object? excludeCategories = null,
+    Object? includeProducts = freezed,
+    Object? excludeProducts = freezed,
+    Object? includeCategories = freezed,
+    Object? excludeCategories = freezed,
   }) {
     return _then(_$CouponModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      couponCode: null == couponCode
+      couponCode: freezed == couponCode
           ? _value.couponCode
           : couponCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -233,7 +233,7 @@ class __$$CouponModelImplCopyWithImpl<$Res>
       amountDiscounted: null == amountDiscounted
           ? _value.amountDiscounted
           : amountDiscounted // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -258,22 +258,22 @@ class __$$CouponModelImplCopyWithImpl<$Res>
           ? _value.maximunSpend
           : maximunSpend // ignore: cast_nullable_to_non_nullable
               as double,
-      includeProducts: null == includeProducts
+      includeProducts: freezed == includeProducts
           ? _value._includeProducts
           : includeProducts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      excludeProducts: null == excludeProducts
+              as List<String>?,
+      excludeProducts: freezed == excludeProducts
           ? _value._excludeProducts
           : excludeProducts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      includeCategories: null == includeCategories
+              as List<String>?,
+      includeCategories: freezed == includeCategories
           ? _value._includeCategories
           : includeCategories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      excludeCategories: null == excludeCategories
+              as List<String>?,
+      excludeCategories: freezed == excludeCategories
           ? _value._excludeCategories
           : excludeCategories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
     ));
   }
 }
@@ -293,10 +293,10 @@ class _$CouponModelImpl implements _CouponModel {
       required this.allowFreeShipping,
       required this.minimunSpend,
       required this.maximunSpend,
-      required final List<String> includeProducts,
-      required final List<String> excludeProducts,
-      required final List<String> includeCategories,
-      required final List<String> excludeCategories})
+      required final List<String>? includeProducts,
+      required final List<String>? excludeProducts,
+      required final List<String>? includeCategories,
+      required final List<String>? excludeCategories})
       : _includeProducts = includeProducts,
         _excludeProducts = excludeProducts,
         _includeCategories = includeCategories,
@@ -308,13 +308,13 @@ class _$CouponModelImpl implements _CouponModel {
   @override
   final int id;
   @override
-  final String couponCode;
+  final String? couponCode;
   @override
   final String description;
   @override
   final int orders;
   @override
-  final String amountDiscounted;
+  final int amountDiscounted;
   @override
   final DateTime created;
   @override
@@ -327,38 +327,46 @@ class _$CouponModelImpl implements _CouponModel {
   final double minimunSpend;
   @override
   final double maximunSpend;
-  final List<String> _includeProducts;
+  final List<String>? _includeProducts;
   @override
-  List<String> get includeProducts {
+  List<String>? get includeProducts {
+    final value = _includeProducts;
+    if (value == null) return null;
     if (_includeProducts is EqualUnmodifiableListView) return _includeProducts;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_includeProducts);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _excludeProducts;
+  final List<String>? _excludeProducts;
   @override
-  List<String> get excludeProducts {
+  List<String>? get excludeProducts {
+    final value = _excludeProducts;
+    if (value == null) return null;
     if (_excludeProducts is EqualUnmodifiableListView) return _excludeProducts;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_excludeProducts);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _includeCategories;
+  final List<String>? _includeCategories;
   @override
-  List<String> get includeCategories {
+  List<String>? get includeCategories {
+    final value = _includeCategories;
+    if (value == null) return null;
     if (_includeCategories is EqualUnmodifiableListView)
       return _includeCategories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_includeCategories);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _excludeCategories;
+  final List<String>? _excludeCategories;
   @override
-  List<String> get excludeCategories {
+  List<String>? get excludeCategories {
+    final value = _excludeCategories;
+    if (value == null) return null;
     if (_excludeCategories is EqualUnmodifiableListView)
       return _excludeCategories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_excludeCategories);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -435,20 +443,20 @@ class _$CouponModelImpl implements _CouponModel {
 abstract class _CouponModel implements CouponModel {
   factory _CouponModel(
       {required final int id,
-      required final String couponCode,
+      required final String? couponCode,
       required final String description,
       required final int orders,
-      required final String amountDiscounted,
+      required final int amountDiscounted,
       required final DateTime created,
       required final DateTime expired,
       required final CouponType type,
       required final bool allowFreeShipping,
       required final double minimunSpend,
       required final double maximunSpend,
-      required final List<String> includeProducts,
-      required final List<String> excludeProducts,
-      required final List<String> includeCategories,
-      required final List<String> excludeCategories}) = _$CouponModelImpl;
+      required final List<String>? includeProducts,
+      required final List<String>? excludeProducts,
+      required final List<String>? includeCategories,
+      required final List<String>? excludeCategories}) = _$CouponModelImpl;
 
   factory _CouponModel.fromJson(Map<String, dynamic> json) =
       _$CouponModelImpl.fromJson;
@@ -456,13 +464,13 @@ abstract class _CouponModel implements CouponModel {
   @override
   int get id;
   @override
-  String get couponCode;
+  String? get couponCode;
   @override
   String get description;
   @override
   int get orders;
   @override
-  String get amountDiscounted;
+  int get amountDiscounted;
   @override
   DateTime get created;
   @override
@@ -476,13 +484,13 @@ abstract class _CouponModel implements CouponModel {
   @override
   double get maximunSpend;
   @override
-  List<String> get includeProducts;
+  List<String>? get includeProducts;
   @override
-  List<String> get excludeProducts;
+  List<String>? get excludeProducts;
   @override
-  List<String> get includeCategories;
+  List<String>? get includeCategories;
   @override
-  List<String> get excludeCategories;
+  List<String>? get excludeCategories;
   @override
   @JsonKey(ignore: true)
   _$$CouponModelImplCopyWith<_$CouponModelImpl> get copyWith =>

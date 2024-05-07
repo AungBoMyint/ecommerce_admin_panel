@@ -9,6 +9,7 @@ import 'package:ecommerce_admin/core/bloc_base/base_bloc.dart';
 import 'package:ecommerce_admin/core/data/actions_status.dart';
 import 'package:ecommerce_admin/coupons/model/coupon_model.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
+import 'package:flutter/services.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -54,7 +55,7 @@ class CouponBloc extends BaseBloc<CouponModel, BaseEvent, CouponState> {
 
   @override
   Future<String> requestData() async {
-    return "";
+    return await rootBundle.loadString("assets/mock/coupons.json");
   }
 
   FutureOr<void> _onChangeCouponCode(

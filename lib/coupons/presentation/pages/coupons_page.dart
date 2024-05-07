@@ -1,28 +1,256 @@
-import 'dart:developer';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin/core/bloc/core_bloc.dart';
 import 'package:ecommerce_admin/core/bloc_base/base_bloc.dart';
+import 'package:ecommerce_admin/core/presentation/pages/base_table_form_widget.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/drop_down_widget.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/link_text_button.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/main_title_text.dart';
 import 'package:ecommerce_admin/core/presentation/widgets/row_link_btn.dart';
+import 'package:ecommerce_admin/core/presentation/widgets/top_actions.dart';
 import 'package:ecommerce_admin/coupons/bloc/coupon_bloc.dart';
 import 'package:ecommerce_admin/coupons/model/coupon_model.dart';
+import 'package:ecommerce_admin/coupons/presentation/widgets/coupon_general_body.dart';
+import 'package:ecommerce_admin/coupons/presentation/widgets/coupon_usage_description.dart';
 import 'package:ecommerce_admin/coupons/presentation/widgets/row_text_field.dart';
 import 'package:ecommerce_admin/theme/colors.dart';
 import 'package:ecommerce_admin/utils/extensions.dart';
 import 'package:ecommerce_admin/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/data/actions_status.dart';
-import '../../../core/presentation/widgets/form_error_conditions.dart';
-import '../../../core/presentation/widgets/loading_widget.dart';
-import '../widgets/row_search_field.dart';
+class CouponTable extends StatefulWidget {
+  const CouponTable({super.key});
 
-class CouponsPage extends StatelessWidget {
+  @override
+  State<CouponTable> createState() => _CouponTableState();
+}
+
+class _CouponTableState
+    extends BaseTableFormWidgetState<CouponTable, CouponBloc, CouponState> {
+  @override
+  bool hasForm() {
+    return false;
+  }
+
+  @override
+  List<Widget> columnList() {
+    final textTheme = getTextTheme();
+    final isMSTABLET = getSize().width < MSTABLET;
+    return [
+      BlocBuilder<CouponBloc, CouponState>(
+        builder: (context, state) {
+          return Checkbox(
+            side: const BorderSide(width: 2, color: linkBTNColor),
+            value: (state.selectedItems.isNotEmpty &&
+                state.selectedItems.length == state.items.length),
+            onChanged: (v) => context.read<CouponBloc>().add(
+                  SelectAllItemsEvent(
+                    isSelectAll: (v ?? false),
+                  ),
+                ),
+          );
+        },
+      ),
+      Text(
+        "Coupon Code",
+        style: textTheme.displaySmall,
+      ),
+      Text(
+        "Orders",
+        style: textTheme.displaySmall,
+      ),
+      if (!isMSTABLET) ...[
+        Text(
+          "Amount discounted",
+          style: textTheme.displaySmall,
+        ),
+      ],
+      if (!isMSTABLET) ...[
+        Text(
+          "Created",
+          style: textTheme.displaySmall,
+        ),
+      ],
+      if (!isMSTABLET) ...[
+        Text(
+          "Expired",
+          style: textTheme.displaySmall,
+        ),
+      ],
+      Text(
+        "Type",
+        style: textTheme.displaySmall,
+      ),
+    ];
+  }
+
+  @override
+  void endOfFrame() {
+    context.read<CouponBloc>().add(FetchEvent());
+  }
+
+  @override
+  Widget getForm() {
+    return Container();
+  }
+
+  @override
+  Widget getSubmitButton() {
+    return Container();
+  }
+
+  @override
+  Widget getTitle() {
+    return Container();
+  }
+
+  @override
+  List<List<DataCell>> rowList(CouponState state) {
+    final textTheme = getTextTheme();
+    final isMSTABLET = getSize().width < MSTABLET;
+    return List.generate(state.items.length, (index) {
+      final item = state.items[index] as CouponModel;
+      /* final item = CouponModel(
+        id: 0,
+        couponCode: "couponCode",
+        description: "description",
+        orders: 1,
+        amountDiscounted: "amountDiscounted",
+        created: DateTime.now(),
+        expired: DateTime.now(),
+        type: CouponType.empty,
+        allowFreeShipping: false,
+        minimunSpend: 0,
+        maximunSpend: 0,
+        includeProducts: [],
+        excludeProducts: [],
+        includeCategories: [],
+        excludeCategories: [],
+      );
+       */
+      return [
+        DataCell(
+          Checkbox(
+            side: const BorderSide(width: 2, color: linkBTNColor),
+            value: state.selectedItems.contains(
+              item.id,
+            ),
+            onChanged: (v) => context.read<CouponBloc>().add(
+                  SelectItemEvent(
+                    value: v ?? false,
+                    id: item.id,
+                  ),
+                ),
+          ),
+        ),
+        DataCell(
+          MainTitleText(
+            e: item.couponCode ?? "ABC-11",
+            onEdit: () => context.read<CoreBloc>().add(
+                  ChangePageEvent(
+                    page: PageType.editCoupons,
+                  ),
+                ),
+          ),
+        ),
+        //Orders
+        DataCell(
+          Text(
+            "${item.orders}",
+            style: textTheme.headlineMedium,
+          ),
+        ),
+        //amounted discount
+        if (!isMSTABLET) ...[
+          DataCell(
+            Text(
+              "${item.amountDiscounted}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: textTheme.headlineMedium,
+            ),
+          )
+        ],
+        //created
+        if (!isMSTABLET) ...[
+          DataCell(
+            Text(
+              item.created.toString(),
+              style: textTheme.headlineMedium,
+            ),
+          )
+        ],
+        //expired
+        if (!isMSTABLET) ...[
+          DataCell(
+            Text(
+              item.expired.toString(),
+              style: textTheme.headlineMedium,
+            ),
+          )
+        ],
+        //type
+        DataCell(
+          Text(
+            item.type.toString(),
+            style: textTheme.headlineMedium,
+          ),
+        ),
+      ];
+    });
+  }
+
+  @override
+  Widget topActions() {
+    return Column(
+      children: [
+        TopActions(
+          searchHint: "Search coupons",
+          title: "Coupons",
+          onSearch: () => context.read<CouponBloc>().add(
+                SearchEvent(),
+              ),
+          onAddNew: () => context.read<CoreBloc>().add(
+                ChangePageEvent(
+                  page: PageType.editCoupons,
+                ),
+              ),
+        ),
+        Row(
+          children: [
+            Gap(20),
+            BlocBuilder<CouponBloc, CouponState>(
+              builder: (context, state) {
+                return DropDownWidget(
+                  hintText: "Actions",
+                  items: const ["Edit", "Delete"],
+                  width: 100,
+                  value: state.selectedAction,
+                  onChanged: (value) {
+                    context
+                        .read<CouponBloc>()
+                        .add(ChangeActionsEvent(value: value ?? ""));
+                  },
+                );
+              },
+            ),
+            10.hSpace(),
+            LinkTextButton(
+              width: 100,
+              height: 35,
+              onPressed: () {
+                context.read<CouponBloc>().add(ActionApplyEvent());
+              },
+              text: "Apply",
+              fillColor: linkBTNColor,
+            ),
+          ],
+        )
+      ],
+    );
+  }
+}
+/* class CouponsPage extends StatelessWidget {
   const CouponsPage({super.key});
 
   @override
@@ -111,8 +339,8 @@ class CouponsPage extends StatelessWidget {
                             text: "General",
                             icon: FontAwesomeIcons.codeFork,
                             bgColor: state.dataTab == CouponDataTab.general
-                                ? Colors.grey.shade200
-                                : Colors.white,
+                                ? Colors.white
+                                : Colors.grey.shade200,
                             iColor: state.dataTab == CouponDataTab.general
                                 ? Colors.grey.shade400
                                 : null,
@@ -135,8 +363,8 @@ class CouponsPage extends StatelessWidget {
                             text: "Usage restriction",
                             bgColor:
                                 state.dataTab == CouponDataTab.usageRestriction
-                                    ? Colors.grey.shade200
-                                    : Colors.white,
+                                    ? Colors.white
+                                    : Colors.grey.shade200,
                             iColor:
                                 state.dataTab == CouponDataTab.usageRestriction
                                     ? Colors.grey.shade400
@@ -204,7 +432,7 @@ class CouponsPage extends StatelessWidget {
                       height: 10 * 60,
                       width: double.infinity,
                       child: DataTable2(
-                        minWidth: 200,
+                        minWidth: 20,
                         border: TableBorder.symmetric(
                             outside: BorderSide(color: Colors.grey.shade300)),
                         columns: [
@@ -381,325 +609,4 @@ class CouponsPage extends StatelessWidget {
     );
   }
 }
-
-class CouponUsageRestrictionTabBody2 extends StatelessWidget {
-  const CouponUsageRestrictionTabBody2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Column(
-        children: [
-          //Minimum Spend
-          BlocBuilder<CouponBloc, CouponState>(
-            builder: (context, state) {
-              return RowTextField(
-                label: "Minimum Spend",
-                initialValue: "${state.minumumSpend}",
-                onChanged: (v) => context
-                    .read<CouponBloc>()
-                    .add(ChangeMinimumSpeed(value: int.tryParse(v) ?? 0)),
-              );
-            },
-          ),
-          Gap(25),
-          //Maximum Spend
-          BlocBuilder<CouponBloc, CouponState>(builder: (context, state) {
-            return RowTextField(
-              label: "Maximum Spend",
-              initialValue: "${state.maximumSpend}",
-              onChanged: (v) => context.read<CouponBloc>().add(
-                    ChangeMaximumSpeed(
-                      value: int.tryParse(v) ?? 0,
-                    ),
-                  ),
-            );
-          }),
-          Gap(25),
-          //Include Products
-          BlocBuilder<CouponBloc, CouponState>(builder: (context, state) {
-            return RowSearchField(
-              hintText: "Search for a product",
-              isSelected: (i) => contains(
-                i,
-                state.includeProducts,
-              ),
-              label: "Include Products",
-              getName: (i) => i["name"],
-              onChanged: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeIncludeProducts(value: v ?? {})),
-              selectedItems: state.includeProducts,
-              onDeleted: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeIncludeProducts(value: v ?? {})),
-            );
-          }),
-          Gap(25),
-          //Exclude Products
-          BlocBuilder<CouponBloc, CouponState>(builder: (context, state) {
-            return RowSearchField(
-              isSelected: (i) => contains(
-                i,
-                state.excludeProducts,
-              ),
-              hintText: "Search for a product",
-              label: "Exclude Products",
-              getName: (i) => i["name"],
-              onChanged: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeExcludeProducts(value: v ?? {})),
-              selectedItems: state.excludeProducts,
-              onDeleted: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeExcludeProducts(value: v ?? {})),
-            );
-          }),
-          Gap(25),
-          //Include Categories
-          BlocBuilder<CouponBloc, CouponState>(builder: (context, state) {
-            return RowSearchField(
-              hintText: "Search for a category",
-              isSelected: (i) => contains(
-                i,
-                state.includeCategories,
-              ),
-              label: "Include Categories",
-              getName: (i) => i["name"],
-              onChanged: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeIncludeCategories(value: v ?? {})),
-              selectedItems: state.includeCategories,
-              onDeleted: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeIncludeCategories(value: v ?? {})),
-            );
-          }),
-          //Exclude Categories
-          Gap(25),
-          BlocBuilder<CouponBloc, CouponState>(builder: (context, state) {
-            return RowSearchField(
-              hintText: "Search for a category",
-              isSelected: (i) => contains(
-                i,
-                state.excludeCategories,
-              ),
-              label: "Exclude Categories",
-              getName: (i) => i["name"],
-              onChanged: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeExcludeCategories(value: v ?? {})),
-              selectedItems: state.excludeCategories,
-              onDeleted: (v) => context
-                  .read<CouponBloc>()
-                  .add(ChangeExcludeCategories(value: v ?? {})),
-            );
-          }),
-
-          Gap(25),
-        ],
-      ),
-    );
-  }
-
-  bool contains(Map<String, dynamic> item, List<Map<String, dynamic>> items) {
-    for (var element in items) {
-      if (element["id"] == item["id"]) {
-        return true;
-      }
-    }
-    return false;
-  }
-}
-
-class CouponGeneralTabBody extends StatelessWidget {
-  const CouponGeneralTabBody({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return DataTable2(
-      headingRowHeight: 0,
-      border: null,
-      showBottomBorder: true,
-      columns: const [
-        DataColumn2(
-          label: Text(""),
-          size: ColumnSize.S,
-        ),
-        DataColumn2(
-          label: Text(""),
-          size: ColumnSize.L,
-        ),
-        DataColumn2(
-          label: Text(""),
-          size: ColumnSize.S,
-          fixedWidth: 20,
-        ),
-      ],
-      rows: [
-        DataRow2(
-          specificRowHeight: 60,
-          cells: [
-            const DataCell(Text("Discount type")),
-            DataCell(
-              BlocBuilder<CouponBloc, CouponState>(
-                builder: (context, state) {
-                  return DropDownWidget<CouponTypeModel>(
-                    width: 300,
-                    hintText: "",
-                    items: couponTypes,
-                    value: state.couponType.value,
-                    onChanged: (v) => context
-                        .read<CouponBloc>()
-                        .add(ChangeCouponTypeEvent(couponType: v!)),
-                  );
-                },
-              ),
-            ),
-            DataCell(Container()),
-          ],
-        ),
-        DataRow2(
-          specificRowHeight: 60,
-          cells: [
-            const DataCell(Text("Coupon amount")),
-            DataCell(
-              SizedBox(
-                height: 40,
-                child: TextFormField(
-                  cursorHeight: 15,
-                  onChanged: (v) => context
-                      .read<CouponBloc>()
-                      .add(ChangeAmountEvent(value: v)),
-                  decoration: const InputDecoration(
-                    hintText: "0",
-                    border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.only(
-                      left: 10,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            DataCell(Container()),
-          ],
-        ),
-        DataRow2(specificRowHeight: 60, cells: [
-          const DataCell(Text("Allow free shipping")),
-          DataCell(Row(
-            children: [
-              BlocBuilder<CouponBloc, CouponState>(
-                builder: (context, state) {
-                  return Checkbox(
-                    value: state.allowFreeShipping,
-                    onChanged: (v) =>
-                        context.read<CouponBloc>().add(ChangeAllowShipping(
-                              value: v ?? false,
-                            )),
-                  );
-                },
-              ),
-            ],
-          )),
-          DataCell(0.vSpace()),
-        ]),
-        DataRow2(
-          specificRowHeight: 60,
-          cells: [
-            const DataCell(Text("Coupon expiry date")),
-            DataCell(
-              SizedBox(
-                height: 40,
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  onTap: () async {
-                    showRoundedDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(DateTime.now().year - 1),
-                        lastDate: DateTime(DateTime.now().year + 1),
-                        borderRadius: 16,
-                        styleDatePicker: MaterialRoundedDatePickerStyle(
-                          backgroundHeader: Colors.white,
-                          textStyleDayButton: textTheme.bodyMedium,
-                          textStyleYearButton: textTheme.bodyLarge,
-                          textStyleDayHeader: textTheme.bodyMedium,
-                          textStyleCurrentDayOnCalendar: textTheme.bodyMedium,
-                          textStyleDayOnCalendar: textTheme.bodyMedium,
-                          textStyleDayOnCalendarSelected:
-                              textTheme.bodyMedium?.copyWith(
-                            color: Colors.white,
-                          ),
-                          textStyleDayOnCalendarDisabled: textTheme.bodyMedium,
-                          textStyleMonthYearHeader: textTheme.bodyMedium,
-                          paddingDatePicker: EdgeInsets.all(0),
-                          paddingMonthHeader: EdgeInsets.all(32),
-                          paddingActionBar: EdgeInsets.all(16),
-                          paddingDateYearHeader: EdgeInsets.all(32),
-                          sizeArrow: 30,
-                          colorArrowNext: Colors.black,
-                          colorArrowPrevious: Colors.black,
-                          marginLeftArrowPrevious: 16,
-                          marginTopArrowPrevious: 16,
-                          marginTopArrowNext: 16,
-                          marginRightArrowNext: 32,
-                          textStyleButtonAction: textTheme.bodyMedium,
-                          textStyleButtonPositive: textTheme.bodyMedium,
-                          textStyleButtonNegative:
-                              textTheme.bodyMedium?.copyWith(
-                            color: Colors.black.withOpacity(0.5),
-                          ),
-                          decorationDateSelected: const BoxDecoration(
-                            color: linkBTNColor,
-                            shape: BoxShape.circle,
-                          ),
-                          backgroundPicker: Colors.white,
-                          backgroundActionBar: Colors.white,
-                          backgroundHeaderMonth: Colors.white,
-                        )).then((newDateTime) {
-                      log("🍾-Selected DateTime ${newDateTime.toString()}");
-                      context.read<CouponBloc>().add(ChangeExpiredDate(
-                          value: newDateTime ?? DateTime.now()));
-                    });
-                  },
-                  child: Container(
-                    height: 34,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        border: Border.all(
-                          color: Colors.black,
-                        )),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: BlocBuilder<CouponBloc, CouponState>(
-                        builder: (context, state) {
-                          return Text(
-                            state.expireDate.value == null
-                                ? "YYY-MM-DD"
-                                : formatDMYDash(state.expireDate.value!),
-                            textAlign: TextAlign.left,
-                          );
-                        },
-                      ).withPadding(10, 0),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            DataCell(Container()),
-          ],
-        ),
-      ],
-    );
-  }
-}
+ */

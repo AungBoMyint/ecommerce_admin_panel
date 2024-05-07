@@ -32,6 +32,7 @@ enum PageType {
   editUsers,
 }
 
+const double EDESKTOP = 1352;
 const double XDESKTOP = 1262.0;
 const double MDESKTOP = 1280;
 // ignore: constant_identifier_names
